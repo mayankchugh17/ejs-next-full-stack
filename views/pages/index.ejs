@@ -1,0 +1,28 @@
+<%- layout("layout/boilerplate.ejs") %>
+<%- include("../includes/navbar.ejs") %>
+  <div class="bg-[#F5F5F5] flex flex-col items-center justify-around gap-10 items-center py-2">
+    <div class="flex flex-row justify-around items-center gap-100">
+      <img src="/logo.png" alt="Logo" class="w-120 h-40 mb-4" />
+      <div class="flex justify-center items-center gap-4">
+        <input type="text" placeholder="Search..." class="border border-gray-300 rounded-md px-5 py-3 w-96" />
+        <img src="/homeicon1.avif" alt="Search" class="w-8 h-6 ml-2 cursor-pointer" />
+        <img src="/homeicon2.avif" alt="Search" class="w-8 h-6 ml-2 cursor-pointer" />
+        <img src="/homeicon3.avif" alt="Search" class="w-8 h-6 ml-2 cursor-pointer" />
+      </div>
+    </div>
+    <nav class="flex justify-around items-center gap-20">
+      <a href="/dashboard" class="text-2xl font-semibold text-gray-700 hover:text-blue-500">About</a>
+      <a href="/products" class="text-2xl font-semibold text-gray-700 hover:text-blue-500">Publications</a>
+      <a href="/orders" class="text-2xl font-semibold text-gray-700 hover:text-blue-500">Membership</a>
+      <a href="/customers" class="text-2xl font-semibold text-gray-700 hover:text-blue-500">Education</a>
+      <a href="/customers" class="text-2xl font-semibold text-gray-700 hover:text-blue-500">Annual Meeting</a>
+      <a href="/customers" class="text-2xl font-semibold text-gray-700 hover:text-blue-500">Calender</a>
+      <a href="/customers" class="text-2xl font-semibold text-gray-700 hover:text-blue-500">Legislation</a>
+      <a href="/customers" class="text-2xl font-semibold text-gray-700 hover:text-blue-500">Support</a>
+
+
+    </nav>
+  </div>
+  
+<%- include("../includes/footer.ejs") %>
+
