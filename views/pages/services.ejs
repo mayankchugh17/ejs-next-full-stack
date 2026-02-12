@@ -1,0 +1,131 @@
+<%- layout("layout/boilerplate.ejs") %>
+
+<section class="min-h-screen bg-gradient-to-br from-[#C5A059] via-[#2F2A38] to-[#F1EAD3]"">
+  <%- include("../includes/navbar.ejs") %>
+    
+  <div class="flex">
+    <%- include("../particals/sidebar.ejs") %>
+
+    <div class="flex-1 px-10 py-12">
+      
+      <% if (success.length > 0) { %>
+        <div class="mb-6 bg-green-100 text-green-700 px-4 py-3 rounded-lg shadow">
+          <%= success[0] %>
+        </div>
+      <% } %>
+
+      <% if (error.length > 0) { %>
+        <div class="mb-6 bg-red-100 text-red-700 px-4 py-3 rounded-lg shadow">
+          <%= error[0] %>
+        </div>
+      <% } %>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div class="text-white space-y-6 max-w-xl">
+          <h2 class="text-4xl font-extrabold leading-snug">
+            Edit Your Services Section
+          </h2>
+
+          <p class="text-blue-100 text-lg leading-relaxed">
+            Manage services displayed on your landing page.
+            Keep them authentic, impactful, and concise.
+          </p>
+
+          <img
+            src="/dashboard/hero/info_graphic_2.svg"
+            alt="info graphic"
+            class="w-80 mt-8 opacity-95"
+          />
+        </div>
+        <form
+          method="post"
+          action="/services"
+          class="bg-white rounded-2xl shadow-2xl p-10 space-y-6"
+        >
+          <h3 class="text-2xl font-bold text-gray-800 mb-4">
+            Services Details
+          </h3>
+
+          <div>
+            <label class="block text-gray-600 font-medium mb-1">
+              Services Title
+            </label>
+            <input
+            value="<%= serviceData.title %>"
+              type="text"
+              name="title"
+              class="w-full text-black p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+              placeholder="Enter Services Title"
+            />
+          </div>
+
+          <div>
+            <label class="block text-gray-600 font-medium mb-1">
+              Heading
+            </label>
+            <input
+             value="<%= serviceData.heading %>"
+              type="text"
+              name="heading"
+              class="w-full text-black p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+              placeholder="Enter Services Heading"
+            />
+          </div>
+
+          <div>
+            <label class="block text-gray-600 font-medium mb-1">
+              Description
+            </label>
+            <input
+                value="<%= serviceData.description %>"
+              type="text"
+              name="description"
+              class="w-full text-black p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+              placeholder="e.g. Software Engineer"
+            />
+          </div>
+          <label class="block text-gray-600 font-medium mb-1">
+              list of services (comma separated)
+            </label>
+            <input
+                value="<%= serviceData.list.join(', ') %>"
+                type="text"
+              name="list"
+              class="w-full text-black p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+              placeholder="e.g. Web Development, Mobile App Development, UI/UX Design"
+            />
+            <label class="block text-gray-600 font-medium mb-1">
+              Sub Title
+            </label>
+            <input
+                value="<%= serviceData.subTitle %>"
+              type="text"
+              name="subTitle"
+              class="w-full text-black p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+              placeholder="e.g. Software Engineer"
+
+              />
+            <label class="block text-gray-600 font-medium mb-1">
+              Sub Description
+            </label>
+            <input
+                value="<%= serviceData.subDescription %>"
+              type="text"
+              name="subDescription"
+              class="w-full text-black p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+              placeholder="e.g. Software Engineer"
+            />
+
+
+          <button
+            type="submit"
+            class="w-full bg-blue-600 text-white font-semibold py-3 rounded-lg hover:bg-blue-700 transition-all duration-300 shadow-md"
+          >
+            Update Services 
+          </button>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</section>

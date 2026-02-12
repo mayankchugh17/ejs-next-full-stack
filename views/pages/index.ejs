@@ -1,28 +1,57 @@
-<%- layout("layout/boilerplate.ejs") %>
+<%- layout("layout/boilerplate.ejs") %> 
+<style>
+  body {
+    background-color: #f5f5f5;
+  }
+</style>
+
+
+
+
 <%- include("../includes/navbar.ejs") %>
-  <div class="bg-[#F5F5F5] flex flex-col items-center justify-around gap-10 items-center py-2">
-    <div class="flex flex-row justify-around items-center gap-100">
-      <img src="/logo.png" alt="Logo" class="w-120 h-40 mb-4" />
-      <div class="flex justify-center items-center gap-4">
-        <input type="text" placeholder="Search..." class="border border-gray-300 rounded-md px-5 py-3 w-96" />
-        <img src="/homeicon1.avif" alt="Search" class="w-8 h-6 ml-2 cursor-pointer" />
-        <img src="/homeicon2.avif" alt="Search" class="w-8 h-6 ml-2 cursor-pointer" />
-        <img src="/homeicon3.avif" alt="Search" class="w-8 h-6 ml-2 cursor-pointer" />
+<div class="flex justify-start items-center">
+  <%- include("../particals/sidebar.ejs") %>
+  <div>
+    <h1 class=" ml-10 text-black text-lg font-semibold">ECOMMERCE</h1>
+    <div
+      class="ml-10 w-[380px] bg-white rounded-md shadow-sm border border-gray-200 overflow-hidden"
+    >
+      <div class="flex items-center justify-between p-6">
+        <div>
+          <p class="text-gray-400 text-sm uppercase tracking-wide">Good Day,</p>
+          <h2 class="text-2xl font-semibold text-gray-800">David Dev!</h2>
+        </div>
+
+        <div class="w-24 h-24">
+          <img
+            src="/dashboard/1.svg"
+            alt="Illustration"
+            class="w-full h-full object-contain"
+          />
+        </div>
+      </div>
+
+      <div class="border-t border-gray-200"></div>
+
+      <div
+        class="flex items-center justify-between px-6 py-4 text-sm text-gray-600 bg-gray-50"
+      >
+        <div class="flex items-center gap-2">
+          <i class="ri-calendar-line"></i>
+          <span><%= date %></span>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <i class="ri-time-line"></i>
+          <span><%= time %></span>
+        </div>
       </div>
     </div>
-    <nav class="flex justify-around items-center gap-20">
-      <a href="/dashboard" class="text-2xl font-semibold text-gray-700 hover:text-blue-500">About</a>
-      <a href="/products" class="text-2xl font-semibold text-gray-700 hover:text-blue-500">Publications</a>
-      <a href="/orders" class="text-2xl font-semibold text-gray-700 hover:text-blue-500">Membership</a>
-      <a href="/customers" class="text-2xl font-semibold text-gray-700 hover:text-blue-500">Education</a>
-      <a href="/customers" class="text-2xl font-semibold text-gray-700 hover:text-blue-500">Annual Meeting</a>
-      <a href="/customers" class="text-2xl font-semibold text-gray-700 hover:text-blue-500">Calender</a>
-      <a href="/customers" class="text-2xl font-semibold text-gray-700 hover:text-blue-500">Legislation</a>
-      <a href="/customers" class="text-2xl font-semibold text-gray-700 hover:text-blue-500">Support</a>
+
+    
 
 
-    </nav>
   </div>
-  
-<%- include("../includes/footer.ejs") %>
+</div>
 
+<!-- <%- include("../includes/footer.ejs") %> -->

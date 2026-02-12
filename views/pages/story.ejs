@@ -1,0 +1,130 @@
+<%- layout("layout/boilerplate.ejs") %>
+  <%- include("../includes/navbar.ejs") %>
+
+<section class="min-h-screen bg-gradient-to-br from-[#C5A059] via-[#2F2A38] to-[#F1EAD3]">
+
+  <div class="flex">
+
+    <!-- Sidebar page -->
+    <%- include("../particals/sidebar.ejs") %>
+
+    <div class="flex-1 px-10 py-12">
+
+      <!-- Flash Messages -->
+      <% if (success.length > 0) { %>
+        <div class="mb-6 bg-green-100 text-green-700 px-4 py-3 rounded-lg shadow">
+          <%= success[0] %>
+        </div>
+      <% } %>
+
+      <% if (error.length > 0) { %>
+        <div class="mb-6 bg-red-100 text-red-700 px-4 py-3 rounded-lg shadow">
+          <%= error[0] %>
+        </div>
+      <% } %>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
+        <!-- Left section -->
+        <div class="text-white space-y-6 max-w-xl">
+          <h2 class="text-4xl font-extrabold leading-snug">
+            Edit Your Story Section
+          </h2>
+
+          <p class="text-gray-200 text-lg leading-relaxed">
+            Tell your journey, mission, and values.
+            This section builds trust—keep it real and relatable.
+          </p>
+
+          <img
+            src="/dashboard/hero/info_graphic_2.svg"
+            alt="story graphic"
+            class="w-80 mt-8 opacity-95"
+          />
+        </div>
+
+        <!-- Right section -->
+        <form
+          method="post"
+          action="/dashboard/story"
+          class="bg-white rounded-2xl shadow-2xl p-10 space-y-6 text-black"
+        >
+          <h3 class="text-2xl font-bold text-gray-800 mb-4">
+            Story Content
+          </h3>
+
+          <div>
+            <label class="block text-gray-600 font-medium mb-1">
+              Story Heading
+            </label>
+            <input
+              value="<%= storyData.storyHeading %>"
+              type="text"
+              name="storyHeading"
+              class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+              placeholder="Main story heading"
+            />
+          </div>
+
+          <div>
+            <label class="block text-gray-600 font-medium mb-1">
+              Story Title 1
+            </label>
+            <input
+              value="<%= storyData.storyTitle1 %>"
+              type="text"
+              name="storyTitle1"
+              class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+              placeholder="First chapter title"
+            />
+          </div>
+
+          <div>
+            <label class="block text-gray-600 font-medium mb-1">
+              Story Description 1
+            </label>
+            <textarea
+              name="storyDescription1"
+              rows="3"
+              class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none resize-none"
+              placeholder="Describe the first part of your journey"
+            ><%= storyData.storyDescription1 %></textarea>
+          </div>
+
+          <div>
+            <label class="block text-gray-600 font-medium mb-1">
+              Story Title 2
+            </label>
+            <input
+              value="<%= storyData.storyTitle2 %>"
+              type="text"
+              name="storyTitle2"
+              class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+              placeholder="Second chapter title"
+            />
+          </div>
+
+          <div>
+            <label class="block text-gray-600 font-medium mb-1">
+              Story Description 2
+            </label>
+            <textarea
+              name="storyDescription2"
+              rows="3"
+              class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none resize-none"
+              placeholder="Describe the next phase of your journey"
+            ><%= storyData.storyDescription2 %></textarea>
+          </div>
+
+          <button
+            type="submit"
+            class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition-all duration-300 shadow-md"
+          >
+            Save Story Section
+          </button>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</section>

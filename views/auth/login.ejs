@@ -1,65 +1,67 @@
 <%- layout("layout/boilerplate.ejs") %>
 
-<div class="min-h-screen flex items-center justify-center bg-[#7C6AE6]">
-    <!-- Card -->
-    <div class="w-full max-w-md bg-[#DDE6FF] rounded-2xl shadow-xl p-8">
-        
-        <!-- Logo -->
-        <div class="flex items-center justify-center mb-6">
-            <div class="flex items-center space-x-2 text-[#6C63FF] font-bold text-xl">
-                <span class="rounded-md px-2 py-1">
-                    <img src="/logo.png" alt="Logo" class="w-full h-20"/>
-                </span>
-            </div>
-        </div>
 
-        <!-- Heading -->
-        <h2 class="text-2xl font-semibold text-center text-gray-800">
-            Login to Admin account
-        </h2>
-        <p class="text-center text-sm text-gray-600 mt-2 mb-6">
-            Access to the most powerfull tool in the entire design and web industry.
-        </p>
+<div
+  class="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#6B5AE6] via-[#4B3F8F] to-[#2B253A]"
+>
+  <div
+    class="w-full max-w-4xl bg-[#2C2638] rounded-2xl shadow-2xl flex overflow-hidden"
+  >
+    <!-- Left Section -->
+    <div class="hidden md:flex w-1/2 relative">
+      <img
+        src="/login/login_bg.jpg"
+        alt="Background"
+        class="absolute inset-0 w-full h-full object-cover"
+      />
 
-        <!-- Form -->
-        <form action="/admin/auth/login" method="POST" class="space-y-4">
-            <input
-                type="email"
-                name="username"
-                placeholder="E-mail Address"
-                required
-                class="w-full px-4 py-3 rounded-lg bg-[#EAF1FF] focus:outline-none focus:ring-2 focus:ring-[#6C63FF]"
-            />
+      <div
+        class="absolute inset-0 bg-gradient-to-t from-[#1E1A2B]/80 to-transparent"
+      ></div>
 
-            <input
-                type="password"
-                name="password"
-                placeholder="Password"
-                required
-                class="w-full px-4 py-3 rounded-lg bg-[#EAF1FF] focus:outline-none focus:ring-2 focus:ring-[#6C63FF]"
-            />
-
-            <div class="flex items-center justify-between">
-                <button
-                    type="submit"
-                    class="bg-[#6C63FF] text-white px-8 py-2 rounded-lg hover:bg-[#5a52d6] transition">
-                    Login
-                </button>
-
-                <a href="#" class="text-sm text-gray-600 hover:underline">
-                    Forget password?
-                </a>
-            </div>
-        </form>
-
-      
-        
-
-        <!-- Register -->
-        <div class="mt-6 text-center">
-            <a href="/admin/register" class="text-sm text-[#6C63FF] font-medium hover:underline">
-                Register new account
-            </a>
-        </div>
+      <div class="relative z-10 p-8 flex flex-col justify-end text-white">
+        <h2 class="text-3xl font-semibold">Capturing Moments,</h2>
+        <p class="text-2xl font-light">Creating Memories</p>
+      </div>
     </div>
+
+    <!-- Right Section -->
+    <div class="w-full md:w-1/2 p-10 text-white">
+      <h2 class="text-3xl font-semibold mb-2">Login to your account</h2>
+      <p class="text-sm text-gray-400 mb-8">
+        Don't have an account?
+        <a href="/admin/register" class="text-[#7C6AE6] hover:underline">
+          Register
+        </a>
+      </p>
+
+      <!-- Form -->
+      <form action="/admin/auth/login" method="POST" class="space-y-5">
+        <input
+          type="email"
+          name="username"
+          placeholder="Email address"
+          required
+          class="w-full px-4 py-3 rounded-lg bg-[#3A334D] text-white placeholder-gray-400 border border-[#4A4270] focus:outline-none focus:ring-2 focus:ring-[#7C6AE6]"
+        />
+
+        <div class="relative">
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            required
+            class="w-full px-4 py-3 rounded-lg bg-[#3A334D] text-white placeholder-gray-400 border border-[#4A4270] focus:outline-none focus:ring-2 focus:ring-[#7C6AE6]"
+          />
+        </div>
+
+        <button
+          type="submit"
+          class="w-full bg-[#7C6AE6] hover:bg-[#6B5AE6] transition text-white py-3 rounded-lg font-medium"
+        >
+          Login
+        </button>
+      </form>
+    </div>
+  </div>
 </div>

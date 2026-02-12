@@ -1,0 +1,99 @@
+<%- layout("layout/boilerplate.ejs") %>
+
+<section class="min-h-screen bg-gradient-to-br from-[#C5A059] via-[#2F2A38] to-[#F1EAD3]"">
+  <%- include("../includes/navbar.ejs") %>
+
+  <div class="flex">
+    <%- include("../particals/sidebar.ejs") %>
+
+    <div class="flex-1 px-10 py-12">
+      
+      <% if (success.length > 0) { %>
+        <div class="mb-6 bg-green-100 text-green-700 px-4 py-3 rounded-lg shadow">
+          <%= success[0] %>
+        </div>
+      <% } %>
+
+      <% if (error.length > 0) { %>
+        <div class="mb-6 bg-red-100 text-red-700 px-4 py-3 rounded-lg shadow">
+          <%= error[0] %>
+        </div>
+      <% } %>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div class="text-white space-y-6 max-w-xl">
+          <h2 class="text-4xl font-extrabold leading-snug">
+            Edit Your Testimonials
+          </h2>
+
+          <p class="text-blue-100 text-lg leading-relaxed">
+            Manage testimonials displayed on your landing page.
+            Keep them authentic, impactful, and concise.
+          </p>
+
+          <img
+            src="/dashboard/hero/info_graphic_2.svg"
+            alt="info graphic"
+            class="w-80 mt-8 opacity-95"
+          />
+        </div>
+        <form
+          method="post"
+          action="/testimonials"
+          class="bg-white rounded-2xl shadow-2xl p-10 space-y-6"
+        >
+          <h3 class="text-2xl font-bold text-gray-800 mb-4">
+            Testimonials Details
+          </h3>
+
+          <div>
+            <label class="block text-gray-600 font-medium mb-1">
+              Testimonials Heading
+            </label>
+            <input
+              value="<%= data.testimonialsHeading %>"
+              type="text"
+              name="testimonialsHeading"
+              class="w-full text-black p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+              placeholder="What clients say about you"
+            />
+          </div>
+
+          <div>
+            <label class="block text-gray-600 font-medium mb-1">
+              Author Name
+            </label>
+            <input
+              value="<%= data.testimonialsAuthor %>"
+              type="text"
+              name="testimonialsAuthor"
+              class="w-full text-black p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+              placeholder="Author name"
+            />
+          </div>
+
+          <div>
+            <label class="block text-gray-600 font-medium mb-1">
+              Author Designation
+            </label>
+            <input
+              value="<%= data.testimonialsDesignation %>"
+              type="text"
+              name="testimonialsDesignation"
+              class="w-full text-black p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+              placeholder="e.g. Software Engineer"
+            />
+          </div>
+
+          <button
+            type="submit"
+            class="w-full bg-blue-600 text-white font-semibold py-3 rounded-lg hover:bg-blue-700 transition-all duration-300 shadow-md"
+          >
+            Update Testimonials
+          </button>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</section>
