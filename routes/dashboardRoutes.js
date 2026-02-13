@@ -46,7 +46,7 @@ dashboardRouter.post("/hero", async (req, res) => {
     );
 
     if (updatedHero) {
-      console.log("Hero section updated successfully");
+      
       req.flash("success", "Hero section updated successfully!");
     } else {
       const newHero = new Hero({
@@ -57,13 +57,13 @@ dashboardRouter.post("/hero", async (req, res) => {
         button2,
       });
       await newHero.save();
-      console.log("New hero section created successfully");
+      
       req.flash("success", "Hero section created successfully!");
     }
 
     return res.redirect("/dashboard/hero");
   } catch (err) {
-    console.error("Error saving hero section:", err);
+
     req.flash("error", "Failed to update hero section");
     return res.redirect("/dashboard/hero");
   }
@@ -73,10 +73,10 @@ dashboardRouter.post("/hero", async (req, res) => {
 dashboardRouter.get("/hero/data", async (req, res) => {
   try {
     const heroData = await Hero.findOne({});
-    console.log("Hero data:", heroData);
+
     return res.status(200).json(heroData);
   } catch (error) {
-    console.error("Error fetching hero data:", error);
+    // console.error("Error fetching hero data:", error);
     res.status(500).json({ error: "Failed to fetch hero data" });
   }
 });
@@ -112,7 +112,6 @@ dashboardRouter.post("/story", async (req, res) => {
     );
 
     if (updatedStory) {
-      console.log("Story section updated successfully");
       req.flash("success", "Story section updated successfully!");
     } else {
       const newStory = new Story({
@@ -123,13 +122,11 @@ dashboardRouter.post("/story", async (req, res) => {
         storyDescription2,
       });
       await newStory.save();
-      console.log("New story section created successfully");
       req.flash("success", "Story section created successfully!");
     }
 
     return res.redirect("/dashboard/story");
   } catch (err) {
-    console.error("Error saving story section:", err);
     req.flash("error", "Failed to update story section");
     return res.redirect("/dashboard/story");
   }
@@ -139,7 +136,7 @@ dashboardRouter.post("/story", async (req, res) => {
 dashboardRouter.get("/story/data", async (req, res) => {
   try {
     const storyData = await Story.findOne({});
-    console.log(storyData);
+    // console.log(storyData);
     return res.status(200).json(storyData);
   } catch (err) {
     console.error("Error fetching story data:", err);

@@ -41,7 +41,6 @@ serviceRouter.post('/', async (req, res) => {
 
     if (serviceData) {
       req.flash('success', 'Service section updated successfully!');
-      console.log('Service section updated successfully');
     } else {
       // Create new document
       serviceData = new Service({
@@ -54,12 +53,11 @@ serviceRouter.post('/', async (req, res) => {
       });
       await serviceData.save();
       req.flash('success', 'Service section created successfully!');
-      console.log('Service section created successfully');
     }
 
     return res.redirect('/services');
   } catch (err) {
-    console.error('Error saving service section:', err);
+    // console.error('Error saving service section:', err);
     req.flash('error', 'Failed to update service section');
     return res.redirect('/services');
   }
@@ -69,7 +67,7 @@ serviceRouter.post('/', async (req, res) => {
 serviceRouter.get('/data', async (req, res) => {
   try {
     const serviceData = await Service.findOne({});
-    console.log('Service data:', serviceData);
+    // console.log('Service data:', serviceData);
     return res.status(200).json(serviceData);
   } catch (err) {
     console.error('Error fetching service data:', err);

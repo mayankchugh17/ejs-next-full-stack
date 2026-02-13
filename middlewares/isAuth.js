@@ -11,12 +11,11 @@ const isAuth = async (req, res, next) =>{
         let verifyToken = jwt.verify(token, process.env.JWT_SECRET);
         if(!verifyToken) {
             return res.redirect("/unauthorized");
-            
         }
         
         next();
     } catch (error) {
-        console.log("isAuth error");
+        // console.log("isAuth error");
         console.log(error);
         return res.status(500).json({message:"is Auth error"}); 
     }

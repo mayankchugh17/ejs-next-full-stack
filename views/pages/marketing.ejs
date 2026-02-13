@@ -94,8 +94,8 @@
             </label>
             <input
               type="text"
-              name="subHeading1"
-              value="<%= data.subHeading1 %>"
+              value="<%= data.bigData.subHeading1 %>"
+              name="bigData[subHeading1]"
               class="w-full text-black p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
               placeholder="First sub heading"
             />
@@ -107,8 +107,8 @@
             </label>
             <input
               type="text"
-              name="subHeading2"
-              value="<%= data.subHeading2 %>"
+              value="<%= data.bigData.subHeading2 %>"
+              name="bigData[subHeading2]"
               class="w-full text-black p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
               placeholder="Second sub heading"
             />
@@ -119,9 +119,9 @@
               Sub Heading 3
             </label>
             <input
+            value="<%= data.bigData.subHeading3 %>"
               type="text"
-              name="subHeading3"
-              value="<%= data.subHeading3 %>"
+              name="bigData[subHeading3]"
               class="w-full text-black p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
               placeholder="Third sub heading"
             />
@@ -132,10 +132,11 @@
               Sub Heading 4
             </label>
 
-            <input
+              <input
+              
               type="text"
-              name="subHeading4"
-              value="<%= data.subHeading4 %>"
+              value="<%= data.bigData.subHeading3 %>"
+              name="bigData[subHeading4]"
               class="w-full text-black p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
               placeholder="Fourth sub heading"
             />
@@ -147,11 +148,11 @@
             </label>
 
           <textarea
-              name="subDescription1"
+              name="bigData[subDescription1]"
               rows="2"
               class="w-full text-black p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none resize-none"
               placeholder="First sub description"
-            ><%= data.subDescription1 %></textarea>
+            ><%= data.bigData.subDescription1 %></textarea>
           </div>
 
           <div>
@@ -159,11 +160,11 @@
               Sub Description 2
             </label>
             <textarea
-              name="subDescription2"
+              name="bigData[subDescription2]"
               rows="2"
               class="w-full text-black p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none resize-none"
               placeholder="Second sub description"
-            ><%= data.subDescription2 %></textarea>
+            ><%= data.bigData.subDescription2 %></textarea>
           </div>
 
           <div>
@@ -171,11 +172,11 @@
               Sub Description 3
             </label>
             <textarea
-              name="subDescription3"
+              name="bigData[subDescription3]"
               rows="2"
               class="w-full text-black p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none resize-none"
               placeholder="Third sub description"
-            ><%= data.subDescription3 %></textarea>
+            ><%= data.bigData.subDescription3 %></textarea>
 
           </div>
 
@@ -184,16 +185,13 @@
               Sub Description 4
             </label>
             <textarea
-              name="subDescription4"
+              name="bigData[subDescription4]"
               rows="2"
               class="w-full text-black p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none resize-none"
               placeholder="Fourth sub description"
-            ><%= data.subDescription4 %></textarea>
+            ><%= data.bigData.subDescription4 %></textarea>
           </div>
 
-
-
-          
           <button
             type="submit"
             class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition-all duration-300 shadow-md"
