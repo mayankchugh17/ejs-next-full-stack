@@ -54,6 +54,7 @@ adminRouter.post("/auth/login", async (req, res) => {
     // console.log('Login attempt for username:', username);
 
     if (!admin) {
+      console.log("Admin not found for username:", username);
       return res.render("auth/login.ejs", { error: "Invalid credentials" });
     }
     const isMatch = await bcrypt.compare(password, admin.password);
@@ -68,10 +69,10 @@ adminRouter.post("/auth/login", async (req, res) => {
     // set token in cookies 
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false,
-      sameSite: "Strict",
-      maxAge: 1 * 24 * 60 * 60 * 1000,
+      secure: true,
+      sameSite: "none",
     });
+
 
     console.log("Admin logged in:", admin.username);
     res.redirect("/dashboard");
