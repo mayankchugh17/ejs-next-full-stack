@@ -9,8 +9,11 @@ const isAuth = async (req, res, next) =>{
         } 
 
         let verifyToken = jwt.verify(token, process.env.JWT_SECRET);
-        console.log("verify token is ", verifyToken);
-
+        if(!verifyToken) {
+            return res.redirect("/unauthorized");
+            
+        }
+        
         next();
     } catch (error) {
         console.log("isAuth error");

@@ -20,9 +20,9 @@ const serviceRouter = require("./routes/serviceRoute");
 const unauthorizedRouter = require("./routes/unauthorized");
 
 // port
-const port = process.env.PORT;
-// console.log(port);
+const port = process.env.PORT || 8080;
 
+// Middleware
 app.use(cors(
   {
     origin: "http://localhost:3000",
@@ -54,10 +54,15 @@ app.use(flash());
 app.use((req, res, next) => {
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
-
   next();
 });
 
+
+// Middle to check is Admin Logged In
+app.use((req, res, next) => {
+  res.locals.isAdminLoggedIn = req.cookies.token ? true : false; // check is admin logged In
+  next();
+});
 
 // Routes
 app.use("/admin", adminRouter);

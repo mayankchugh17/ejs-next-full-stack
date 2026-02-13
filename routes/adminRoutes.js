@@ -84,9 +84,7 @@ adminRouter.post("/auth/login", async (req, res) => {
 // Logout route
 adminRouter.get("/logout", (req, res) => {
     res.clearCookie("token");
-    res.redirect("/admin/login")
-    return res.status(200).json({message:"logout successfull"});
-
+    return res.redirect("/admin/login")
 });
 
 module.exports = adminRouter;

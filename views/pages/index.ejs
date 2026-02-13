@@ -6,9 +6,11 @@
 </style>
 
 
+<%if(isAdminLoggedIn){%>
+  <%- include("../includes/navbar.ejs") %>
+<%}%>
+  
 
-
-<%- include("../includes/navbar.ejs") %>
 <div class="flex justify-start items-center">
   <%- include("../particals/sidebar.ejs") %>
   <div>
