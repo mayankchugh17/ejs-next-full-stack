@@ -6,7 +6,7 @@ const isAuth = require("../middlewares/isAuth.js");
 const dashboardRouter = express.Router();
 
 // Dashboard route
-dashboardRouter.get("/",(req, res) => {
+dashboardRouter.get("/", (req, res) => {
   const now = new Date();
   // console.log(now);
 
@@ -25,7 +25,7 @@ dashboardRouter.get("/hero", isAuth, async (req, res) => {
   const id = "6985aba01afc51d4e25eb934";
   const data = await Hero.findById(id);
   //   console.log("Hero data:", data);
-  res.render("pages/hero.ejs", { data });
+  res.render("pages/hero.ejs",{ data });
 });
 
 // Handle hero form submission
@@ -83,7 +83,7 @@ dashboardRouter.get("/hero/data", async (req, res) => {
 
 // Story route
 
-dashboardRouter.get("/story",isAuth, async (req, res) => {
+dashboardRouter.get("/story", isAuth, async (req, res) => {
   const storyData = await Story.findById("6985a5923f432c9afebacdb3");
   res.render("pages/story.ejs", { storyData });
 });

@@ -3,7 +3,8 @@ const app = express();
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const flash = require('connect-flash');
+const session = require("express-session");
+const flash = require("connect-flash");
 const cookieParser = require("cookie-parser");
 
 const path = require("path");
@@ -17,28 +18,36 @@ const dashboardRouter = require("./routes/dashboardRoutes");
 const testimonialsRoute = require("./routes/testimonials/testimonials");
 const serviceRouter = require("./routes/serviceRoute");
 const unauthorizedRouter = require("./routes/unauthorized");
+const marketingRouter = require("./routes/marketingRoute");
 
 // port
 const port = process.env.PORT || 8080;
 
 // Middleware
-app.use(cors(
-  {
+app.use(
+  cors({
     origin: "http://localhost:3000",
     methods: ["GET", "POST"],
     credentials: true,
-  }
-));
+  }),
+);
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
-app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(express.static("public"));
 app.engine("ejs", ejsMate);
 app.use(bodyParser.json());
 app.use(cookieParser());
 
+app.use(
+  session({
+    secret: "Secret",
+    resave: false,
+    saveUninitialized: true,
+  }),
+);
 
 // Use flash middleware
 app.use(flash());
@@ -49,19 +58,18 @@ app.use((req, res, next) => {
   next();
 });
 
-
-// Middle to check is Admin Logged In
 app.use((req, res, next) => {
-  res.locals.isAdminLoggedIn = req.cookies.token ? true : false; // check is admin logged In
+  res.locals.isAdminLoggedIn = req.cookies.token ? true : false; // check if token exists
   next();
 });
 
 // Routes
 app.use("/admin", adminRouter);
-app.use("/dashboard", dashboardRouter);  
+app.use("/dashboard", dashboardRouter);
 app.use("/testimonials", testimonialsRoute);
 app.use("/services", serviceRouter);
 app.use("/unauthorized", unauthorizedRouter);
+app.use("/marketing", marketingRouter);
 
 // DB connection
 async function connectDB() {
@@ -78,7 +86,3 @@ connectDB();
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
-
-
-
-
