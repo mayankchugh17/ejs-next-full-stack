@@ -37,17 +37,17 @@
 
           <div>
             <label class="block text-gray-600 font-medium mb-1">Card Image URL</label>
-            <input type="text" value="<%= data.card.src %>" name="cardSrc" class="w-full text-black p-3 border rounded-lg" placeholder="https://..." />
+            <input type="text" value="<%= data.cards[0].src %>" name="cardSrc" class="w-full text-black p-3 border rounded-lg" placeholder="https://..." />
           </div>
 
           <div>
             <label class="block text-gray-600 font-medium mb-1">Card Title</label>
-            <input type="text" value="<%= data.card.cardHeading %>" name="cardHeading" class="w-full text-black p-3 border rounded-lg" placeholder="Card title" />
+            <input type="text" value="<%= data.cards[0].cardHeading %>" name="cardHeading" class="w-full text-black p-3 border rounded-lg" placeholder="Card title" />
           </div>
 
           <div>
             <label class="block text-gray-600 font-medium mb-1">Card Description</label>
-            <input type="text" value="<%= data.card.description %>" name="description" class="w-full text-black p-3 border rounded-lg" placeholder="Short description" />
+            <input type="text" value="<%= data.cards[0].description %>" name="description" class="w-full text-black p-3 border rounded-lg" placeholder="Short description" />
           </div>
 
           <button type="submit" class="w-full bg-blue-600 text-white font-semibold py-3 rounded-lg hover:bg-blue-700 transition-all duration-300">Update Portfolio</button>

@@ -1,0 +1,90 @@
+<%- layout("layout/boilerplate.ejs") %> 
+
+
+<section class="min-h-screen bg-gradient-to-br from-[#C5A059] via-[#2F2A38] to-[#F1EAD3]">
+  <%- include("../includes/navbar.ejs") %>
+    <div class="flex">
+    <%- include("../particals/sidebar.ejs") %>
+          <div class="flex-1 px-10 py-12">
+
+      <!-- Flash Messages -->
+      <% if (success.length > 0) { %>
+        <div class="mb-6 bg-green-100 text-green-700 px-4 py-3 rounded-lg shadow">
+          <%= success[0] %>
+        </div>
+      <% } %>
+
+      <% if (error.length > 0) { %>
+        <div class="mb-6 bg-red-100 text-red-700 px-4 py-3 rounded-lg shadow">
+          <%= error[0] %>
+        </div>
+      <% } %>
+
+        <div class="mt-60 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+
+            <div class="text-white space-y-6 max-w-xl">
+          <h2 class="text-4xl font-extrabold leading-snug">
+            Edit Your Hero2 Section
+          </h2>
+
+          <p class="text-blue-100 text-lg leading-relaxed">
+            Control the main marketing content of your landing page.
+            This is the first thing users notice—make it bold and clear.
+          </p>
+
+          <img
+            src="/dashboard/hero/info_graphic_2.svg"
+            alt="hero graphic"
+            class="w-80 mt-8 opacity-95"
+          />
+        </div>
+
+        <!-- Right Form -->
+        <form
+          method="post"
+          action="/hero2"
+          class="bg-white rounded-2xl shadow-2xl p-10 space-y-6"
+        >
+          <h3 class="text-2xl font-bold text-gray-800 mb-4">
+            Hero2 Content
+          </h3>
+
+          <div>
+            <label class="block text-gray-600 font-medium mb-1">
+                Heading
+            </label>
+            <input
+              type="text"
+              name="heading"
+             
+              class="w-full text-black p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+              placeholder="Small intro title"
+            />
+          </div>
+
+          <div>
+            <label class="block text-gray-600 font-medium mb-1">
+              Button Text
+            </label>
+            <input
+              type="text"
+              name="buttonText"
+            
+              class="w-full text-black p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+              placeholder="Button text"
+            />
+          </div>
+
+          <button
+            type="submit"
+            class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition-all duration-300 shadow-md"
+          >
+            Save Hero2 Section
+          </button>
+        </form>
+
+      </div>
+    </div>
+    </div>
+
+</section>
