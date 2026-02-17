@@ -4,34 +4,34 @@ const isAuth = require("../middlewares/isAuth.js");
 
 const portfolioRouter = express.Router();
 
-// Admin page to view/edit portfolio
+// Admin page to edit portfolio
 portfolioRouter.get("/", isAuth, async (req, res) => {
   try {
       const data = await Portfolio.findOne({});
-      console.log("hello")
-      return res.render("pages/portfolio.ejs", { data });
-      
+
+      // console.log(`working data ${data}`);
+     res.render("pages/portfolio.ejs", { data });
   } catch (err) {
     console.error("Error fetching portfolio data:", err);
     return res.status(500).send("Internal Server Error");
   }
 });
 
-// Save/update portfolio entry
+// update portfolio data
 portfolioRouter.post("/", isAuth, async (req, res) => {
   try {
     const { heading, subHeading, cardSrc, cardHeading, description } = req.body;
     const payload = {
-      heading: heading || "",
-      subHeading: subHeading || "",
+      heading: heading,
+      subHeading: subHeading,
       card: {
-        src: cardSrc || "",
-        cardHeading: cardHeading || "",
-        description: description || "",
+        src: cardSrc,
+        cardHeading: cardHeading,
+        description: description,
       },
     };
 
-    console.log("request handle ", payload);
+    // console.log(`request handle , ${payload.heading} and sub heading is ${payload.subHeading}`);
 
     let save = await Portfolio.findOneAndUpdate({}, payload, {
       new: true,
@@ -41,11 +41,10 @@ portfolioRouter.post("/", isAuth, async (req, res) => {
       req.flash("success", "Portfolio section updated successfully!");
       return res.redirect("/portfolio");
     } else {
-      const data = new Portfolio({
-        payload,
-    });
+      const data = new Portfolio(payload);
       await data.save();
       req.flash("success", "Portfolio section created successfully!");
+      return res.redirect("/portfolio");
     }
 
   } catch (err) {
@@ -55,15 +54,17 @@ portfolioRouter.post("/", isAuth, async (req, res) => {
   }
 });
 
-// Public API for frontend
+// frontend API data
 portfolioRouter.get("/data", async (req, res) => {
   try {
-    const data = await Portfolio.findOne({});
+    const data = await Portfolio.findById("69941a8ddba247433901ae54");
+    console.log(data);
     return res.status(200).json(data);
   } catch (err) {
     console.error(err);
     return res.status(500).json({ error: "Failed to fetch portfolio data" });
   }
 });
+
 
 module.exports = portfolioRouter;
