@@ -67,7 +67,7 @@ serviceRouter.post('/', async (req, res) => {
 serviceRouter.get('/data', async (req, res) => {
   try {
     const serviceData = await Service.findOne({});
-    // console.log('Service data:', serviceData);
+    // console.log('Service data:', serviceData); 
     return res.status(200).json(serviceData);
   } catch (err) {
     console.error('Error fetching service data:', err);

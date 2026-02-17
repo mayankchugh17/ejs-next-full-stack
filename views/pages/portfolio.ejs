@@ -1,0 +1,58 @@
+<%- layout("layout/boilerplate.ejs") %>
+
+<section class="min-h-screen bg-gradient-to-br from-[#C5A059] via-[#2F2A38] to-[#F1EAD3]">
+  <%- include("../includes/navbar.ejs") %>
+
+  <div class="flex">
+    <%- include("../particals/sidebar.ejs") %>
+
+    <div class="flex-1 px-10 py-12">
+      <% if (success.length > 0) { %>
+        <div class="mb-6 bg-green-100 text-green-700 px-4 py-3 rounded-lg shadow"><%= success[0] %></div>
+      <% } %>
+
+      <% if (error.length > 0) { %>
+        <div class="mb-6 bg-red-100 text-red-700 px-4 py-3 rounded-lg shadow"><%= error[0] %></div>
+      <% } %>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div class="text-white space-y-6 max-w-xl">
+          <h2 class="text-4xl font-extrabold leading-snug">Edit Portfolio Section</h2>
+          <p class="text-blue-100 text-lg leading-relaxed">Manage portfolio heading and the featured card displayed on the public site.</p>
+          <img src="/dashboard/hero/info_graphic_2.svg" alt="info graphic" class="w-80 mt-8 opacity-95" />
+        </div>
+
+        <form method="post" action="/portfolio" class="bg-white rounded-2xl shadow-2xl p-10 space-y-6">
+          <h3 class="text-2xl font-bold text-gray-800 mb-4">Portfolio Details</h3>
+
+          <div>
+            <label class="block text-gray-600 font-medium mb-1">Heading</label>
+            <input type="text" name="heading" class="w-full text-black p-3 border rounded-lg" placeholder="Portfolio heading" />
+          </div>
+
+          <div>
+            <label class="block text-gray-600 font-medium mb-1">Sub Heading</label>
+            <input type="text" name="subHeading" class="w-full text-black p-3 border rounded-lg" placeholder="Sub heading" />
+          </div>
+
+          <div>
+            <label class="block text-gray-600 font-medium mb-1">Card Image URL</label>
+            <input type="text" name="cardSrc" class="w-full text-black p-3 border rounded-lg" placeholder="https://..." />
+          </div>
+
+          <div>
+            <label class="block text-gray-600 font-medium mb-1">Card Title</label>
+            <input type="text" name="cardHeading" class="w-full text-black p-3 border rounded-lg" placeholder="Card title" />
+          </div>
+
+          <div>
+            <label class="block text-gray-600 font-medium mb-1">Card Description</label>
+            <input type="text" name="description" class="w-full text-black p-3 border rounded-lg" placeholder="Short description" />
+          </div>
+
+          <button type="submit" class="w-full bg-blue-600 text-white font-semibold py-3 rounded-lg hover:bg-blue-700 transition-all duration-300">Update Portfolio</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

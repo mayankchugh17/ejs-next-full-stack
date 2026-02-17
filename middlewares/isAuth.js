@@ -12,7 +12,6 @@ const isAuth = async (req, res, next) =>{
         if(!verifyToken) {
             return res.redirect("/unauthorized");
         }
-        
         next();
     } catch (error) {
         // console.log("isAuth error");

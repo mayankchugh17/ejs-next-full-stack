@@ -19,6 +19,7 @@ const testimonialsRoute = require("./routes/testimonials/testimonials");
 const serviceRouter = require("./routes/serviceRoute");
 const unauthorizedRouter = require("./routes/unauthorized");
 const marketingRouter = require("./routes/marketingRoute");
+const portfolioRouter = require("./routes/portfolioRoute");
 
 // port
 const port = process.env.PORT || 8080;
@@ -70,6 +71,7 @@ app.use("/testimonials", testimonialsRoute);
 app.use("/services", serviceRouter);
 app.use("/unauthorized", unauthorizedRouter);
 app.use("/marketing", marketingRouter);
+app.use("/portfolio", portfolioRouter);
 
 // DB connection
 async function connectDB() {

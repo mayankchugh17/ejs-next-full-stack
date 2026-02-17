@@ -1,11 +1,19 @@
 <%- layout("layout/boilerplate.ejs") %>
 
-
 <div
-  class="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#6B5AE6] via-[#4B3F8F] to-[#2B253A]"
+  class="min-h-screen flex items-center justify-center px-4
+  bg-gradient-to-br from-[#2B253A] via-[#3A2F4D] to-[#C5A059]"
 >
+  <!-- Outer subtle overlay like dashboard -->
+  <div class="absolute inset-0 bg-[#2B253A]/60 backdrop-blur-[2px]"></div>
+
   <div
-    class="w-full max-w-4xl bg-[#2C2638] rounded-2xl shadow-2xl flex overflow-hidden"
+    class="relative w-full max-w-5xl 
+    bg-[#2C2638]/95 
+    border border-[#3F3760] 
+    rounded-2xl 
+    shadow-[0_25px_80px_rgba(0,0,0,0.6)] 
+    flex overflow-hidden"
   >
     <!-- Left Section -->
     <div class="hidden md:flex w-1/2 relative">
@@ -15,52 +23,84 @@
         class="absolute inset-0 w-full h-full object-cover"
       />
 
+      <!-- Dark overlay -->
       <div
-        class="absolute inset-0 bg-gradient-to-t from-[#1E1A2B]/80 to-transparent"
+        class="absolute inset-0 bg-gradient-to-t from-[#1E1A2B]/90 via-[#2B253A]/70 to-transparent"
       ></div>
 
-      <div class="relative z-10 p-8 flex flex-col justify-end text-white">
-        <h2 class="text-3xl font-semibold">Capturing Moments,</h2>
-        <p class="text-2xl font-light">Creating Memories</p>
+      <div class="relative z-10 p-10 flex flex-col justify-end text-white">
+        <h2 class="text-4xl font-bold tracking-wide">
+          Admin Access
+        </h2>
+        <p class="text-lg text-gray-300 mt-2">
+          Securely manage your dashboard content
+        </p>
       </div>
     </div>
 
     <!-- Right Section -->
-    <div class="w-full md:w-1/2 p-10 text-white">
-      <h2 class="text-3xl font-semibold mb-2">Login to your account</h2>
-      <p class="text-sm text-gray-400 mb-8">
-        Don't have an account?
-        <a href="/admin/register" class="text-[#7C6AE6] hover:underline">
+    <div class="w-full md:w-1/2 p-12 text-white">
+      <h2 class="text-3xl font-semibold mb-2">Login to Dashboard</h2>
+
+      <p class="text-md text-gray-400 mb-8">
+        Don’t have an account?
+        <a
+          href="/admin/register"
+          class="text-[#C5A059] hover:text-[#E0B96A] transition font-medium"
+        >
           Register
         </a>
       </p>
 
       <!-- Form -->
-      <form action="/admin/auth/login" method="POST" class="space-y-5">
+      <form action="/admin/auth/login" method="POST" class="space-y-6">
+
         <input
           type="email"
           name="username"
           placeholder="Email address"
           required
-          class="w-full px-4 py-3 rounded-lg bg-[#3A334D] text-white placeholder-gray-400 border border-[#4A4270] focus:outline-none focus:ring-2 focus:ring-[#7C6AE6]"
+          class="w-full px-4 py-3 rounded-xl 
+          bg-[#3A334D] 
+          text-white 
+          placeholder-gray-400 
+          border border-[#4A4270] 
+          focus:outline-none 
+          focus:ring-2 
+          focus:ring-[#C5A059] 
+          focus:border-transparent 
+          transition"
         />
 
-        <div class="relative">
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            required
-            class="w-full px-4 py-3 rounded-lg bg-[#3A334D] text-white placeholder-gray-400 border border-[#4A4270] focus:outline-none focus:ring-2 focus:ring-[#7C6AE6]"
-          />
-        </div>
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          required
+          class="w-full px-4 py-3 rounded-xl 
+          bg-[#3A334D] 
+          text-white 
+          placeholder-gray-400 
+          border border-[#4A4270] 
+          focus:outline-none 
+          focus:ring-2 
+          focus:ring-[#C5A059] 
+          focus:border-transparent 
+          transition"
+        />
 
         <button
           type="submit"
-          class="w-full bg-[#7C6AE6] hover:bg-[#6B5AE6] transition text-white py-3 rounded-lg font-medium"
+          class="w-full 
+          bg-gradient-to-r from-[#C5A059] to-[#B48A3C] 
+          hover:from-[#D8B46A] hover:to-[#C59B4F] 
+          transition-all duration-300 
+          text-white py-3 rounded-xl font-semibold 
+          shadow-lg shadow-[#C5A059]/30"
         >
           Login
         </button>
+
       </form>
     </div>
   </div>

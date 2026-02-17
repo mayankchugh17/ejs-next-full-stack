@@ -1,0 +1,69 @@
+const express = require("express");
+const Portfolio = require("../models/portfolio.js");
+const isAuth = require("../middlewares/isAuth.js");
+
+const portfolioRouter = express.Router();
+
+// Admin page to view/edit portfolio
+portfolioRouter.get("/", isAuth, async (req, res) => {
+  try {
+      const data = await Portfolio.findOne({});
+      console.log("hello")
+      return res.render("pages/portfolio.ejs", { data });
+      
+  } catch (err) {
+    console.error("Error fetching portfolio data:", err);
+    return res.status(500).send("Internal Server Error");
+  }
+});
+
+// Save/update portfolio entry
+portfolioRouter.post("/", isAuth, async (req, res) => {
+  try {
+    const { heading, subHeading, cardSrc, cardHeading, description } = req.body;
+    const payload = {
+      heading: heading || "",
+      subHeading: subHeading || "",
+      card: {
+        src: cardSrc || "",
+        cardHeading: cardHeading || "",
+        description: description || "",
+      },
+    };
+
+    console.log("request handle ", payload);
+
+    let save = await Portfolio.findOneAndUpdate({}, payload, {
+      new: true,
+    });
+
+    if (save) {
+      req.flash("success", "Portfolio section updated successfully!");
+      return res.redirect("/portfolio");
+    } else {
+      const data = new Portfolio({
+        payload,
+    });
+      await data.save();
+      req.flash("success", "Portfolio section created successfully!");
+    }
+
+  } catch (err) {
+    console.error("Error saving portfolio data:", err);
+    req.flash("error", "Failed to update portfolio section");
+    return res.redirect("/portfolio");
+  }
+});
+
+// Public API for frontend
+portfolioRouter.get("/data", async (req, res) => {
+  try {
+    const data = await Portfolio.findOne({});
+    return res.status(200).json(data);
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "Failed to fetch portfolio data" });
+  }
+});
+
+module.exports = portfolioRouter;
