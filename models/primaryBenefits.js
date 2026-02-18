@@ -39,4 +39,5 @@ const primaryBenefitsSchema = new mongoose.Schema({
 });
 
 // build a model
-mongoose.model("PrimaryBenefits", primaryBenefitsSchema);
+const PrimaryBenefits = mongoose.model("PrimaryBenefits", primaryBenefitsSchema);
+module.exports = PrimaryBenefits;

@@ -21,6 +21,8 @@ const unauthorizedRouter = require("./routes/unauthorized");
 const marketingRouter = require("./routes/marketingRoute");
 const portfolioRouter = require("./routes/portfolioRoute");
 const hero2Router = require("./routes/hero2Routes");
+const primaryBenefitsRouter = require("./routes/primaryBenefits");
+
 
 // port
 const port = process.env.PORT || 8080;
@@ -74,6 +76,7 @@ app.use("/unauthorized", unauthorizedRouter);
 app.use("/marketing", marketingRouter);
 app.use("/portfolio", portfolioRouter);
 app.use("/hero2", hero2Router);
+app.use("/primaryBenefits", primaryBenefitsRouter);
 
 
 // DB connection
