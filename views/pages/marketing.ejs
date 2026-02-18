@@ -1,206 +1,128 @@
 <%- layout("layout/boilerplate.ejs") %>
+<%- include("../includes/navbar.ejs") %>
 
-<section class="min-h-screen bg-gradient-to-br from-[#C5A059] via-[#2F2A38] to-[#F1EAD3]">
-  
-  <%- include("../includes/navbar.ejs") %>
+<div class="fixed top-6 right-6 z-50 space-y-4 min-w-[320px] pointer-events-none">
+  <% if (success && success.length > 0) { %>
+    <div class="pointer-events-auto flex items-center p-4 text-emerald-100 bg-emerald-500/20 border border-emerald-500/30 backdrop-blur-md rounded-2xl shadow-2xl animate-slide-in">
+      <div class="flex-shrink-0 bg-emerald-500 text-white p-2 rounded-xl">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+      </div>
+      <div class="ml-3 font-medium"><%= success[0] %></div>
+      <button onclick="this.parentElement.remove()" class="ml-auto text-emerald-100/50 hover:text-emerald-100 transition-colors pointer-events-auto">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"></path></svg>
+      </button>
+    </div>
+  <% } %>
+
+  <% if (error && error.length > 0) { %>
+    <div class="pointer-events-auto flex items-center p-4 text-rose-100 bg-rose-500/20 border border-rose-500/30 backdrop-blur-md rounded-2xl shadow-2xl animate-slide-in">
+      <div class="flex-shrink-0 bg-rose-500 text-white p-2 rounded-xl">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+      </div>
+      <div class="ml-3 font-medium"><%= error[0] %></div>
+      <button onclick="this.parentElement.remove()" class="ml-auto text-rose-100/50 hover:text-rose-100 transition-colors pointer-events-auto">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"></path></svg>
+      </button>
+    </div>
+  <% } %>
+</div>
+
+<section class="min-h-screen bg-slate-900 font-sans">
   <div class="flex">
-
     <%- include("../particals/sidebar.ejs") %>
-    <div class="flex-1 px-10 py-12">
 
-      <!-- Flash Messages -->
-      <% if (success.length > 0) { %>
-        <div class="mb-6 bg-green-100 text-green-700 px-4 py-3 rounded-lg shadow">
-          <%= success[0] %>
+    <div class="flex-1 p-6 lg:p-12">
+      <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+        
+        <div class="lg:sticky lg:top-12 space-y-6">
+          <header class="space-y-2">
+            <h2 class="text-3xl font-extrabold text-white">Marketing Preview</h2>
+            <p class="text-slate-400">This is your primary "Value Proposition" section.</p>
+          </header>
+
+          <div class="w-full bg-white rounded-2xl overflow-hidden shadow-2xl border-4 border-slate-800">
+            <div class="bg-slate-800 p-3 flex gap-2">
+              <div class="w-3 h-3 rounded-full bg-red-500"></div>
+              <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+              <div class="w-3 h-3 rounded-full bg-green-500"></div>
+
+            </div>
+
+            <div class="p-8 lg:p-10 space-y-8 bg-white">
+              <div class="text-center space-y-4">
+                <h1 class="text-3xl font-black text-slate-900 leading-tight"><%= data.heading %></h1>
+                <p class="text-slate-600 max-w-md mx-auto"><%= data.description %></p>
+                <button class="bg-blue-600 text-white px-8 py-3 rounded-full font-bold shadow-lg"><%= data.buttonText %></button>
+              </div>
+
+              <div class="grid grid-cols-2 gap-6 pt-8 border-t border-slate-100">
+                <% for(let i=1; i<=4; i++) { %>
+                  <div class="space-y-1">
+                    <h4 class="font-bold text-slate-800 text-sm">● <%= data.bigData['subHeading' + i] %></h4>
+                    <p class="text-slate-500 text-xs leading-relaxed"><%= data.bigData['subDescription' + i] %></p>
+                  </div>
+                <% } %>
+              </div>
+            </div>
+          </div>
         </div>
-      <% } %>
 
-      <% if (error.length > 0) { %>
-        <div class="mb-6 bg-red-100 text-red-700 px-4 py-3 rounded-lg shadow">
-          <%= error[0] %>
+        <div class="bg-slate-800 rounded-3xl p-1 border border-slate-700 shadow-2xl">
+          <form method="post" action="/marketing" class="bg-slate-900 rounded-[calc(1.5rem-1px)] p-8 lg:p-10 space-y-8 text-white">
+            <div class="border-b border-slate-800 pb-6">
+              <h3 class="text-2xl font-bold">Marketing Content Editor</h3>
+              <p class="text-slate-400 text-sm mt-1">Bold headlines and key features.</p>
+            </div>
+
+            <div class="space-y-6">
+              <div class="group">
+                <label class="block text-slate-400 text-xs uppercase tracking-widest font-bold mb-2">Main Heading</label>
+                <input type="text" name="heading" value="<%= data.heading %>" class="w-full bg-slate-800 text-white p-4 border border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all">
+              </div>
+
+              <div class="group">
+                <label class="block text-slate-400 text-xs uppercase tracking-widest font-bold mb-2">Description</label>
+                <textarea name="description" rows="2" class="w-full bg-slate-800 text-white p-4 border border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none resize-none transition-all"><%= data.description %></textarea>
+              </div>
+
+              <div class="group">
+                <label class="block text-slate-400 text-xs uppercase tracking-widest font-bold mb-2">Call to Action (Button)</label>
+                <input type="text" name="buttonText" value="<%= data.buttonText %>" class="w-full bg-slate-800 text-white p-4 border border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all">
+              </div>
+
+              <div class="pt-6 border-t border-slate-800">
+                <h4 class="text-blue-400 text-sm font-bold uppercase tracking-widest mb-4">Core Features (Grid)</h4>
+                <div class="grid grid-cols-1 gap-6">
+                  <% for(let i=1; i<=4; i++) { %>
+                    <div class="p-4 bg-slate-800/50 rounded-2xl border border-slate-700 space-y-4">
+                      <div class="flex items-center gap-2 mb-2">
+                        <span class="bg-blue-600 text-[10px] px-2 py-1 rounded-md">#<%= i %></span>
+                        <input type="text" name="bigData[subHeading<%= i %>]" value="<%= data.bigData['subHeading' + i] %>" placeholder="Sub-heading <%= i %>" class="flex-1 bg-transparent border-b border-slate-600 focus:border-blue-500 outline-none py-1 text-sm font-bold">
+                      </div>
+                      <textarea name="bigData[subDescription<%= i %>]" rows="2" placeholder="Sub-description <%= i %>" class="w-full bg-slate-900/50 text-slate-300 p-3 text-sm rounded-lg border border-slate-700 outline-none focus:ring-1 focus:ring-blue-500 resize-none"><%= data.bigData['subDescription' + i] %></textarea>
+                    </div>
+                  <% } %>
+                </div>
+              </div>
+            </div>
+
+            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-4 rounded-xl transition-all duration-300 shadow-lg flex items-center justify-center gap-2 transform active:scale-95">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+              Save Marketing Strategy
+            </button>
+          </form>
         </div>
-      <% } %>
-
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-
-              <div class="text-white space-y-6 max-w-xl">
-          <h2 class="text-4xl font-extrabold leading-snug">
-            Edit Your Marketing Section
-          </h2>
-
-          <p class="text-blue-100 text-lg leading-relaxed">
-            Control the main marketing content of your landing page.
-            This is the first thing users notice—make it bold and clear.
-          </p>
-
-          <img
-            src="/dashboard/hero/info_graphic_2.svg"
-            alt="hero graphic"
-            class="w-80 mt-8 opacity-95"
-          />
-        </div>
-
-        <!-- Right Form -->
-        <form
-          method="post"
-          action="/marketing"
-          class="bg-white rounded-2xl shadow-2xl p-10 space-y-6"
-        >
-          <h3 class="text-2xl font-bold text-gray-800 mb-4">
-            Marketing Content
-          </h3>
-
-          <div>
-            <label class="block text-gray-600 font-medium mb-1">
-              Marketing Heading
-            </label>
-            <input
-              type="text"
-              name="heading"
-              value="<%= data.heading %>"
-              class="w-full text-black p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
-              placeholder="Small intro title"
-            />
-          </div>
-
-          <div>
-            <label class="block text-gray-600 font-medium mb-1">
-              Marketing Description
-            </label>
-            <textarea
-              name="description"
-              rows="3"
-              class="w-full text-black p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none resize-none"
-              placeholder="Supporting text below the heading"
-            ><%= data.description %></textarea>
-          </div>
-
-          <div>
-            <label class="block text-gray-600 font-medium mb-1">
-              Button Text
-            </label>
-            <input
-              type="text"
-              name="buttonText"
-              value="<%= data.buttonText %>"
-              class="w-full text-black p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
-              placeholder="Button text"
-            />
-          </div>
-
-          <div>
-            <label class="block text-gray-600 font-medium mb-1">
-              Sub Heading 1
-            </label>
-            <input
-              type="text"
-              value="<%= data.bigData.subHeading1 %>"
-              name="bigData[subHeading1]"
-              class="w-full text-black p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
-              placeholder="First sub heading"
-            />
-          </div>
-
-          <div>
-            <label class="block text-gray-600 font-medium mb-1">
-              Sub Heading 2
-            </label>
-            <input
-              type="text"
-              value="<%= data.bigData.subHeading2 %>"
-              name="bigData[subHeading2]"
-              class="w-full text-black p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
-              placeholder="Second sub heading"
-            />
-          </div>
-
-          <div>
-            <label class="block text-gray-600 font-medium mb-1">
-              Sub Heading 3
-            </label>
-            <input
-            value="<%= data.bigData.subHeading3 %>"
-              type="text"
-              name="bigData[subHeading3]"
-              class="w-full text-black p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
-              placeholder="Third sub heading"
-            />
-          </div>
-
-          <div>
-            <label class="block text-gray-600 font-medium mb-1">
-              Sub Heading 4
-            </label>
-
-              <input
-              
-              type="text"
-              value="<%= data.bigData.subHeading3 %>"
-              name="bigData[subHeading4]"
-              class="w-full text-black p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
-              placeholder="Fourth sub heading"
-            />
-          </div>
-
-          <div>
-            <label class="block text-gray-600 font-medium mb-1">
-              Sub Description 1
-            </label>
-
-          <textarea
-              name="bigData[subDescription1]"
-              rows="2"
-              class="w-full text-black p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none resize-none"
-              placeholder="First sub description"
-            ><%= data.bigData.subDescription1 %></textarea>
-          </div>
-
-          <div>
-            <label class="block text-gray-600 font-medium mb-1">
-              Sub Description 2
-            </label>
-            <textarea
-              name="bigData[subDescription2]"
-              rows="2"
-              class="w-full text-black p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none resize-none"
-              placeholder="Second sub description"
-            ><%= data.bigData.subDescription2 %></textarea>
-          </div>
-
-          <div>
-            <label class="block text-gray-600 font-medium mb-1">
-              Sub Description 3
-            </label>
-            <textarea
-              name="bigData[subDescription3]"
-              rows="2"
-              class="w-full text-black p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none resize-none"
-              placeholder="Third sub description"
-            ><%= data.bigData.subDescription3 %></textarea>
-
-          </div>
-
-          <div>
-            <label class="block text-gray-600 font-medium mb-1">
-              Sub Description 4
-            </label>
-            <textarea
-              name="bigData[subDescription4]"
-              rows="2"
-              class="w-full text-black p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none resize-none"
-              placeholder="Fourth sub description"
-            ><%= data.bigData.subDescription4 %></textarea>
-          </div>
-
-          <button
-            type="submit"
-            class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition-all duration-300 shadow-md"
-          >
-            Save Marketing Section
-          </button>
-        </form>
-
       </div>
     </div>
   </div>
 </section>
+
+<style>
+  @keyframes slideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+  }
+  .animate-slide-in {
+    animation: slideIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  }
+</style>

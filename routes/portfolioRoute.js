@@ -48,7 +48,7 @@ portfolioRouter.post("/", isAuth, async (req, res) => {
     }
 
   } catch (err) {
-    console.error("Error saving portfolio data:", err);
+    // console.error("Error saving portfolio data:", err);
     req.flash("error", "Failed to update portfolio section");
     return res.redirect("/portfolio");
   }
@@ -58,10 +58,10 @@ portfolioRouter.post("/", isAuth, async (req, res) => {
 portfolioRouter.get("/data", async (req, res) => {
   try {
     const data = await Portfolio.findById("69941a8ddba247433901ae54");
-    console.log(data);
+    // console.log(data);
     return res.status(200).json(data);
   } catch (err) {
-    console.error(err);
+    // console.error(err);
     return res.status(500).json({ error: "Failed to fetch portfolio data" });
   }
 });

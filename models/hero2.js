@@ -8,7 +8,4 @@ const hero2Schema = new mongoose.Schema({
     buttonText:String
 });
 
-// building model
-const Hero2 = mongoose.model("hero2", hero2Schema);
-
-module.exports = Hero2;
+module.exports = mongoose.model("Hero2", hero2Schema);

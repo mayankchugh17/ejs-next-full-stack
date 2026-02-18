@@ -1,99 +1,126 @@
 <%- layout("layout/boilerplate.ejs") %>
+<%- include("../includes/navbar.ejs") %>
 
-<section class="min-h-screen bg-gradient-to-br from-[#C5A059] via-[#2F2A38] to-[#F1EAD3]"">
-  <%- include("../includes/navbar.ejs") %>
+<div class="fixed top-6 right-6 z-50 space-y-4 min-w-[320px] pointer-events-none">
+  <% if (success && success.length > 0) { %>
+    <div class="pointer-events-auto flex items-center p-4 text-emerald-100 bg-emerald-500/20 border border-emerald-500/30 backdrop-blur-md rounded-2xl shadow-2xl animate-slide-in">
+      <div class="flex-shrink-0 bg-emerald-500 text-white p-2 rounded-xl">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+      </div>
+      <div class="ml-3 font-medium"><%= success[0] %></div>
+      <button onclick="this.parentElement.remove()" class="ml-auto text-emerald-100/50 hover:text-emerald-100 transition-colors pointer-events-auto">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"></path></svg>
+      </button>
+    </div>
+  <% } %>
 
+  <% if (error && error.length > 0) { %>
+    <div class="pointer-events-auto flex items-center p-4 text-rose-100 bg-rose-500/20 border border-rose-500/30 backdrop-blur-md rounded-2xl shadow-2xl animate-slide-in">
+      <div class="flex-shrink-0 bg-rose-500 text-white p-2 rounded-xl">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+      </div>
+      <div class="ml-3 font-medium"><%= error[0] %></div>
+      <button onclick="this.parentElement.remove()" class="ml-auto text-rose-100/50 hover:text-rose-100 transition-colors pointer-events-auto">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"></path></svg>
+      </button>
+    </div>
+  <% } %>
+</div>
+
+<section class="min-h-screen bg-slate-900">
   <div class="flex">
     <%- include("../particals/sidebar.ejs") %>
 
-    <div class="flex-1 px-10 py-12">
-      
-      <% if (success.length > 0) { %>
-        <div class="mb-6 bg-green-100 text-green-700 px-4 py-3 rounded-lg shadow">
-          <%= success[0] %>
-        </div>
-      <% } %>
+    <div class="flex-1 p-6 lg:p-12">
+      <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+        
+        <div class="lg:sticky lg:top-12 space-y-6">
+          <header class="space-y-2">
+            <h2 class="text-3xl font-extrabold text-white tracking-tight">Social Proof Preview</h2>
+            <p class="text-slate-400">Manage how client feedback appears on your site.</p>
+          </header>
 
-      <% if (error.length > 0) { %>
-        <div class="mb-6 bg-red-100 text-red-700 px-4 py-3 rounded-lg shadow">
-          <%= error[0] %>
-        </div>
-      <% } %>
+          <div class="w-full bg-white rounded-2xl overflow-hidden shadow-2xl border-4 border-slate-800">
+            <div class="bg-slate-800 p-3 flex gap-2">
+              <div class="w-3 h-3 rounded-full bg-red-500"></div>
+              <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+              <div class="w-3 h-3 rounded-full bg-green-500"></div>
+            </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-        <div class="text-white space-y-6 max-w-xl">
-          <h2 class="text-4xl font-extrabold leading-snug">
-            Edit Your Testimonials
-          </h2>
+            <div class="p-10 bg-slate-50 min-h-[400px] flex flex-col justify-center items-center text-center">
+              <div class="mb-6">
+                <svg class="w-10 h-10 text-blue-500 opacity-20 mx-auto" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H15.017C14.4647 8 14.017 8.44772 14.017 9V12C14.017 12.5523 13.5693 13 13.017 13H11.017C10.4647 13 10.017 12.5523 10.017 12V9C10.017 7.89543 10.9124 7 12.017 7H19.017C20.1216 7 21.017 7.89543 21.017 9V15C21.017 17.2091 19.2261 19 17.017 19H14.017V21H14.017ZM3.017 21L3.017 18C3.017 16.8954 3.91243 16 5.017 16H8.017C8.56928 16 9.017 15.5523 9.017 15V9C9.017 8.44772 8.56928 8 8.017 8H4.017C3.46472 8 3.017 8.44772 3.017 9V12C3.017 12.5523 2.56928 13 2.017 13H0.017C-0.535282 13 -1.017 12.5523 -1.017 12V9C-1.017 7.89543 -0.121573 7 0.983 7H8.017C9.12157 7 10.017 7.89543 10.017 9V15C10.017 17.2091 8.22588 19 6.017 19H3.017V21H3.017Z"/></svg>
+              </div>
+              
+              <h3 class="text-2xl font-bold text-slate-800 italic leading-relaxed mb-6" id="preview-testimonialsHeading">
+                "<%= data.testimonialsHeading || 'The service was absolutely incredible, highly recommend!' %>"
+              </h3>
 
-          <p class="text-blue-100 text-lg leading-relaxed">
-            Manage testimonials displayed on your landing page.
-            Keep them authentic, impactful, and concise.
-          </p>
-
-          <img
-            src="/dashboard/hero/info_graphic_2.svg"
-            alt="info graphic"
-            class="w-80 mt-8 opacity-95"
-          />
-        </div>
-        <form
-          method="post"
-          action="/testimonials"
-          class="bg-white rounded-2xl shadow-2xl p-10 space-y-6"
-        >
-          <h3 class="text-2xl font-bold text-gray-800 mb-4">
-            Testimonials Details
-          </h3>
-
-          <div>
-            <label class="block text-gray-600 font-medium mb-1">
-              Testimonials Heading
-            </label>
-            <input
-              value="<%= data.testimonialsHeading %>"
-              type="text"
-              name="testimonialsHeading"
-              class="w-full text-black p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
-              placeholder="What clients say about you"
-            />
+              <div class="flex flex-col items-center">
+                <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold mb-2">
+                  <%= data.testimonialsAuthor ? data.testimonialsAuthor.charAt(0) : 'A' %>
+                </div>
+                <span class="font-bold text-slate-900" id="preview-testimonialsAuthor">
+                  <%= data.testimonialsAuthor || 'John Doe' %>
+                </span>
+                <span class="text-sm text-slate-500" id="preview-testimonialsDesignation">
+                  <%= data.testimonialsDesignation || 'CEO at Company' %>
+                </span>
+              </div>
+            </div>
           </div>
+        </div>
 
-          <div>
-            <label class="block text-gray-600 font-medium mb-1">
-              Author Name
-            </label>
-            <input
-              value="<%= data.testimonialsAuthor %>"
-              type="text"
-              name="testimonialsAuthor"
-              class="w-full text-black p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
-              placeholder="Author name"
-            />
-          </div>
+        <div class="bg-slate-800 rounded-3xl p-1 border border-slate-700 shadow-2xl">
+          <form method="post" action="/testimonials" class="bg-slate-900 rounded-[calc(1.5rem-1px)] p-8 lg:p-10 space-y-8 text-white">
+            <div class="border-b border-slate-800 pb-6">
+              <h3 class="text-2xl font-bold">Update Testimonial</h3>
+              <p class="text-slate-400 text-sm mt-1">Change the featured quote and author details.</p>
+            </div>
 
-          <div>
-            <label class="block text-gray-600 font-medium mb-1">
-              Author Designation
-            </label>
-            <input
-              value="<%= data.testimonialsDesignation %>"
-              type="text"
-              name="testimonialsDesignation"
-              class="w-full text-black p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
-              placeholder="e.g. Software Engineer"
-            />
-          </div>
+            <div class="space-y-6">
+              <div class="group">
+                <label class="block text-slate-400 text-xs uppercase tracking-widest font-bold mb-2 group-focus-within:text-blue-400 transition-colors">Client Quote</label>
+                <textarea name="testimonialsHeading" rows="4" 
+                  class="w-full bg-slate-800 text-white p-4 border border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none resize-none transition-all"
+                  placeholder="Paste the customer feedback here..."><%= data.testimonialsHeading %></textarea>
+              </div>
 
-          <button
-            type="submit"
-            class="w-full bg-blue-600 text-white font-semibold py-3 rounded-lg hover:bg-blue-700 transition-all duration-300 shadow-md"
-          >
-            Update Testimonials
-          </button>
-        </form>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="group">
+                  <label class="block text-slate-400 text-xs uppercase tracking-widest font-bold mb-2 group-focus-within:text-blue-400 transition-colors">Author Name</label>
+                  <input type="text" name="testimonialsAuthor" value="<%= data.testimonialsAuthor %>"
+                    class="w-full bg-slate-800 text-white p-4 border border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                    placeholder="Full Name">
+                </div>
 
+                <div class="group">
+                  <label class="block text-slate-400 text-xs uppercase tracking-widest font-bold mb-2 group-focus-within:text-blue-400 transition-colors">Designation</label>
+                  <input type="text" name="testimonialsDesignation" value="<%= data.testimonialsDesignation %>"
+                    class="w-full bg-slate-800 text-white p-4 border border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                    placeholder="e.g. Founder of TechBox">
+                </div>
+              </div>
+            </div>
+
+            <div class="pt-4">
+              <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-4 rounded-xl transition-all duration-300 shadow-lg shadow-blue-500/20 flex items-center justify-center gap-2 transform active:scale-[0.98]">
+                              Update Testimonials
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </div>
 </section>
+
+<style>
+  @keyframes slideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+  }
+  .animate-slide-in {
+    animation: slideIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  }
+</style>
