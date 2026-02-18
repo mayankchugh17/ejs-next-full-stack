@@ -77,6 +77,7 @@ app.use("/marketing", marketingRouter);
 app.use("/portfolio", portfolioRouter);
 app.use("/hero2", hero2Router);
 app.use("/primaryBenefits", primaryBenefitsRouter);
+app.use("/resonance",)
 
 
 // DB connection
