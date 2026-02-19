@@ -24,6 +24,7 @@ const hero2Router = require("./routes/hero2Routes");
 const primaryBenefitsRouter = require("./routes/primaryBenefits");
 const resonanceRouter = require("./routes/resonanceRoute");
 const featureSliderRouter = require("./routes/featureSliderRoute");
+const templateDesignRouter = require("./routes/templateDesignRoute");
 
 
 
@@ -82,6 +83,7 @@ app.use("/hero2", hero2Router);
 app.use("/primaryBenefits", primaryBenefitsRouter);
 app.use("/resonance", resonanceRouter)
 app.use("/featureSlider", featureSliderRouter);
+app.use("/templateDesign", templateDesignRouter);
 
 
 // DB connection

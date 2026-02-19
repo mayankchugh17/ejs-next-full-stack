@@ -1,0 +1,122 @@
+<%- layout("layout/boilerplate.ejs") %>
+
+<% 
+  // Safety check: ensure 'data' exists so the page doesn't crash
+  if (typeof data === 'undefined' || !data) { var data = {}; } 
+%>
+
+<style>
+  @keyframes slideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+  }
+  
+  .animate-slide-in {
+    animation: slideIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  }
+</style>
+
+<section class="min-h-screen bg-slate-900">
+  <%- include("../includes/navbar.ejs") %>
+  
+  <div class="flex">
+    <%- include("../particals/sidebar.ejs") %>
+
+    <div class="flex-1 p-6 lg:p-12 relative">
+      
+      <div class="fixed top-6 right-6 z-50 space-y-4 min-w-[320px] pointer-events-none">
+        <% if (success && success.length > 0) { %>
+          <div class="pointer-events-auto flex items-center p-4 text-emerald-100 bg-emerald-500/20 border border-emerald-500/30 backdrop-blur-md rounded-2xl shadow-2xl animate-slide-in">
+            <div class="flex-shrink-0 bg-emerald-500 text-white p-2 rounded-xl">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+            </div>
+            <div class="ml-3 font-medium"><%= success[0] %></div>
+            <button onclick="this.parentElement.remove()" class="ml-auto text-emerald-100/50 hover:text-emerald-100 transition-colors">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"></path></svg>
+            </button>
+          </div>
+        <% } %>
+      </div>
+
+      <div class="max-w-7xl mx-auto space-y-12">
+        
+        <div class="space-y-6">
+          <div class="space-y-2">
+            <h2 class="text-3xl font-extrabold text-white tracking-tight">Template Design Preview</h2>
+            <p class="text-slate-400">Previewing the 4-card grid layout.</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <% for(let i=1; i<=4; i++) { 
+               let card = data['card'+i] || {}; 
+               let colors = ['blue', 'emerald', 'purple', 'rose'];
+               let color = colors[i-1];
+            %>
+              <div class="bg-slate-800/50 border-2 border-slate-700 p-6 rounded-2xl space-y-3">
+                <div class="w-10 h-10 bg-<%=color%>-500/20 text-<%=color%>-400 flex items-center justify-center rounded-lg font-bold border border-<%=color%>-500/30">
+                  <%= i %>
+                </div>
+                <h4 class="text-xl font-bold text-white truncate" id="preview-title<%=i%>">
+                  <%= card.title || 'Design Card ' + i %>
+                </h4>
+                <p class="text-slate-400 text-sm line-clamp-3" id="preview-desc<%=i%>">
+                  <%= card.description || 'Description for card ' + i + ' goes here.' %>
+                </p>
+              </div>
+            <% } %>
+          </div>
+        </div>
+
+        <div class="bg-slate-800 rounded-3xl p-1 border border-slate-700 shadow-2xl">
+          <form method="post" action="/templateDesign" class="bg-slate-900 rounded-[calc(1.5rem-1px)] p-8 lg:p-10">
+            <div class="border-b border-slate-800 pb-6 mb-8">
+              <h3 class="text-2xl font-bold text-white">Edit Template Cards</h3>
+              <p class="text-slate-400 text-sm mt-1">Manage content for the four design quadrants.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
+              <% 
+                const cardLabels = [
+                  { key: 'card1', color: 'blue', title: 'Card One' },
+                  { key: 'card2', color: 'emerald', title: 'Card Two' },
+                  { key: 'card3', color: 'purple', title: 'Card Three' },
+                  { key: 'card4', color: 'rose', title: 'Card Four' }
+                ];
+                
+                cardLabels.forEach((item, index) => { 
+                  let currentCard = data[item.key] || {};
+              %>
+                <div class="space-y-4 p-5 bg-slate-800/30 rounded-2xl border border-slate-800 group hover:border-<%=item.color%>-500/50 transition-colors">
+                  <h4 class="text-<%=item.color%>-400 font-bold uppercase text-xs tracking-widest"><%= item.title %></h4>
+                  
+                  <div class="space-y-4">
+                    <div>
+                      <label class="block text-slate-400 text-sm mb-2">Title</label>
+                      <input type="text" 
+                             name="<%=item.key%>[title]" 
+                             oninput="document.getElementById('preview-title<%=index+1%>').innerText = this.value" 
+                             value="<%= currentCard.title || '' %>" 
+                             class="w-full bg-slate-800 text-white p-3 border border-slate-700 rounded-xl focus:ring-2 focus:ring-<%=item.color%>-500 outline-none transition-all">
+                    </div>
+                    <div>
+                      <label class="block text-slate-400 text-sm mb-2">Description</label>
+                      <textarea name="<%=item.key%>[description]" 
+                                oninput="document.getElementById('preview-desc<%=index+1%>').innerText = this.value" 
+                                rows="3" 
+                                class="w-full bg-slate-800 text-white p-3 border border-slate-700 rounded-xl focus:ring-2 focus:ring-<%=item.color%>-500 outline-none resize-none transition-all"><%= currentCard.description || '' %></textarea>
+                    </div>
+                  </div>
+                </div>
+              <% }) %>
+            </div>
+
+            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-4 rounded-xl transition-all shadow-lg shadow-blue-500/20 flex items-center justify-center gap-2 transform active:scale-[0.99]">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path></svg>
+              Update Template Design
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
