@@ -7,7 +7,6 @@ const isAuth = async (req, res, next) =>{
             return res.redirect("/unauthorized");
             // return res.status(400).json({message:"user doesn't have token"});
         } 
-
         let verifyToken = jwt.verify(token, process.env.JWT_SECRET);
         if(!verifyToken) {
             return res.redirect("/unauthorized");

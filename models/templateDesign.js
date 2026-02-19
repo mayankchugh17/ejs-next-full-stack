@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 // Build Schema
 const templateDesignSchema = new mongoose.Schema({
+    heading:String, 
     card1:{
         title:String,
         description:String
