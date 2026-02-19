@@ -1,0 +1,121 @@
+<%- layout("layout/boilerplate.ejs") %>
+
+<style>
+  @keyframes slideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+  }
+  
+  .animate-slide-in {
+    animation: slideIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  }
+</style>
+
+<section class="min-h-screen bg-slate-900">
+  <%- include("../includes/navbar.ejs") %>
+  
+  <div class="flex">
+    <%- include("../particals/sidebar.ejs") %>
+
+    <div class="flex-1 p-6 lg:p-12 relative">
+      
+      <div class="fixed top-6 right-6 z-50 space-y-4 min-w-[320px] pointer-events-none">
+        <% if (success && success.length > 0) { %>
+          <div class="pointer-events-auto flex items-center p-4 text-emerald-100 bg-emerald-500/20 border border-emerald-500/30 backdrop-blur-md rounded-2xl shadow-2xl animate-slide-in">
+            <div class="flex-shrink-0 bg-emerald-500 text-white p-2 rounded-xl">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+            </div>
+            <div class="ml-3 font-medium"><%= success[0] %></div>
+            <button onclick="this.parentElement.remove()" class="ml-auto text-emerald-100/50 hover:text-emerald-100">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"></path></svg>
+            </button>
+          </div>
+        <% } %>
+      </div>
+
+      <div class="max-w-7xl mx-auto space-y-12">
+        
+        <div class="space-y-6">
+          <div class="flex justify-between items-end">
+            <div class="space-y-2">
+              <h2 class="text-3xl font-extrabold text-white tracking-tight">Feature Slider Preview</h2>
+              <p class="text-slate-400">See how your feature cards align on the main page.</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-slate-800/50 border-2 border-slate-700 p-6 rounded-2xl space-y-3">
+              <div class="w-10 h-10 bg-blue-500/20 text-blue-400 flex items-center justify-center rounded-lg font-bold">1</div>
+              <h4 class="uppercase text-xl font-bold text-white" id="preview-title1"><%= data?.card1?.title || 'Feature One' %></h4>
+              <p class="text-slate-400 text-sm" id="preview-desc1"><%= data?.card1?.description || 'Description for the first feature goes here.' %></p>
+            </div>
+            <div class="bg-slate-800/50 border-2 border-slate-700 p-6 rounded-2xl space-y-3">
+              <div class="w-10 h-10 bg-emerald-500/20 text-emerald-400 flex items-center justify-center rounded-lg font-bold">2</div>
+              <h4 class="uppercase text-xl font-bold text-white" id="preview-title2"><%= data?.card2?.title || 'Feature Two' %></h4>
+              <p class="text-slate-400 text-sm" id="preview-desc2"><%= data?.card2?.description || 'Description for the second feature goes here.' %></p>
+            </div>
+            <div class="bg-slate-800/50 border-2 border-slate-700 p-6 rounded-2xl space-y-3">
+              <div class="w-10 h-10 bg-purple-500/20 text-purple-400 flex items-center justify-center rounded-lg font-bold">3</div>
+              <h4 class="uppercase text-xl font-bold text-white" id="preview-title3"><%= data?.card3?.title || 'Feature Three' %></h4>
+              <p class="text-slate-400 text-sm" id="preview-desc3"><%= data?.card3?.description || 'Description for the third feature goes here.' %></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-slate-800 rounded-3xl p-1 border border-slate-700 shadow-2xl">
+          <form method="post" action="/featureSlider" class="bg-slate-900 rounded-[calc(1.5rem-1px)] p-8 lg:p-10">
+            <div class="border-b border-slate-800 pb-6 mb-8">
+              <h3 class="text-2xl font-bold text-white">Edit Feature Slider</h3>
+              <p class="text-slate-400 text-sm mt-1">Update the titles and descriptions for all three cards.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-10">
+              
+              <div class="space-y-4 p-4 bg-slate-800/30 rounded-2xl border border-slate-800">
+                <h4 class="text-blue-400 font-bold uppercase text-xs tracking-widest">Card One</h4>
+                <div class="group">
+                  <label class="block text-slate-400 text-sm mb-2">Title</label>
+                  <input type="text" name="card1[title]" oninput="document.getElementById('preview-title1').innerText = this.value" value="<%= data.card1.title %>" class="w-full bg-slate-800 text-white p-3 border border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none">
+                </div>
+                <div class="group">
+                  <label class="block text-slate-400 text-sm mb-2">Description</label>
+                  <textarea name="card1[description]" oninput="document.getElementById('preview-desc1').innerText = this.value" rows="3" class="w-full bg-slate-800 text-white p-3 border border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none resize-none"><%= data?.card1?.description %></textarea>
+                </div>
+              </div>
+
+              <div class="space-y-4 p-4 bg-slate-800/30 rounded-2xl border border-slate-800">
+                <h4 class="text-emerald-400 font-bold uppercase text-xs tracking-widest">Card Two</h4>
+                <div class="group">
+                  <label class="block text-slate-400 text-sm mb-2">Title</label>
+                  <input type="text" name="card2[title]" oninput="document.getElementById('preview-title2').innerText = this.value" value="<%= data?.card2?.title %>" class="w-full bg-slate-800 text-white p-3 border border-slate-700 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none">
+                </div>
+                <div class="group">
+                  <label class="block text-slate-400 text-sm mb-2">Description</label>
+                  <textarea name="card2[description]" oninput="document.getElementById('preview-desc2').innerText = this.value" rows="3" class="w-full bg-slate-800 text-white p-3 border border-slate-700 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none resize-none"><%= data?.card2?.description %></textarea>
+                </div>
+              </div>
+
+              <div class="space-y-4 p-4 bg-slate-800/30 rounded-2xl border border-slate-800">
+                <h4 class="text-purple-400 font-bold uppercase text-xs tracking-widest">Card Three</h4>
+                <div class="group">
+                  <label class="block text-slate-400 text-sm mb-2">Title</label>
+                  <input type="text" name="card3[title]" oninput="document.getElementById('preview-title3').innerText = this.value" value="<%= data?.card3?.title %>" class="w-full bg-slate-800 text-white p-3 border border-slate-700 rounded-xl focus:ring-2 focus:ring-purple-500 outline-none">
+                </div>
+                <div class="group">
+                  <label class="block text-slate-400 text-sm mb-2">Description</label>
+                  <textarea name="card3[description]" oninput="document.getElementById('preview-desc3').innerText = this.value" rows="3" class="w-full bg-slate-800 text-white p-3 border border-slate-700 rounded-xl focus:ring-2 focus:ring-purple-500 outline-none resize-none"><%= data?.card3?.description %></textarea>
+                </div>
+              </div>
+
+            </div>
+
+            <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-4 rounded-xl transition-all shadow-lg shadow-indigo-500/20 flex items-center justify-center gap-2">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+              Save Feature Slider Updates
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -22,6 +22,9 @@ const marketingRouter = require("./routes/marketingRoute");
 const portfolioRouter = require("./routes/portfolioRoute");
 const hero2Router = require("./routes/hero2Routes");
 const primaryBenefitsRouter = require("./routes/primaryBenefits");
+const resonanceRouter = require("./routes/resonanceRoute");
+const featureSliderRouter = require("./routes/featureSliderRoute");
+
 
 
 // port
@@ -77,7 +80,8 @@ app.use("/marketing", marketingRouter);
 app.use("/portfolio", portfolioRouter);
 app.use("/hero2", hero2Router);
 app.use("/primaryBenefits", primaryBenefitsRouter);
-app.use("/resonance",)
+app.use("/resonance", resonanceRouter)
+app.use("/featureSlider", featureSliderRouter);
 
 
 // DB connection

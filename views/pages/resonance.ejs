@@ -1,0 +1,115 @@
+<%- layout("layout/boilerplate.ejs") %>
+
+<style>
+  @keyframes slideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+  }
+  .animate-slide-in {
+    animation: slideIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  }
+</style>
+
+<section class="min-h-screen bg-slate-900">
+  <%- include("../includes/navbar.ejs") %>
+  
+  <div class="flex">
+    <%- include("../particals/sidebar.ejs") %>
+
+    <div class="flex-1 p-6 lg:p-12 relative">
+      
+      <div class="fixed top-6 right-6 z-50 space-y-4 min-w-[320px] pointer-events-none">
+        <% if (success && success.length > 0) { %>
+          <div class="pointer-events-auto flex items-center p-4 text-emerald-100 bg-emerald-500/20 border border-emerald-500/30 backdrop-blur-md rounded-2xl shadow-2xl animate-slide-in">
+            <div class="flex-shrink-0 bg-emerald-500 text-white p-2 rounded-xl">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+            </div>
+            <div class="ml-3 font-medium"><%= success[0] %></div>
+            <button onclick="this.parentElement.remove()" class="ml-auto text-emerald-100/50 hover:text-emerald-100 transition-colors">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"></path></svg>
+            </button>
+          </div>
+        <% } %>
+      </div>
+
+      <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+        
+        <div class="lg:sticky lg:top-12 space-y-6">
+          <h2 class="text-3xl font-extrabold text-white">Resonance Preview</h2>
+          
+          <div class="bg-gradient-to-br from-indigo-600 to-blue-700 p-10 rounded-3xl shadow-2xl text-white relative overflow-hidden">
+             <div class="absolute -top-4 -left-2 opacity-20 text-9xl font-serif">“</div>
+             
+             <div class="relative z-10 space-y-6">
+                <h3 class="text-2xl font-bold italic" id="preview-heading">
+                    <%= 'Building the Future' %>
+                </h3>
+                <p class="text-lg text-blue-100 leading-relaxed min-h-[100px]" id="preview-desc">
+                    <%= 'Enter a powerful description that resonates with your audience here.' %>
+                </p>
+                
+                <div class="pt-6 border-t border-white/20">
+                    <p class="font-bold text-xl" id="preview-author">
+                        <%= 'Author Name' %>
+                    </p>
+                    <p class="text-blue-200 text-sm" id="preview-degination">
+                        <%= 'Founder / CEO' %>
+                    </p>
+                </div>
+             </div>
+          </div>
+        </div>
+
+        <div class="bg-slate-800 rounded-3xl p-1 border border-slate-700 shadow-2xl">
+          <form method="post" action="/resonance" id="resonance-form" class="bg-slate-900 rounded-[calc(1.5rem-1px)] p-8 lg:p-10 space-y-8">
+            <div>
+              <h3 class="text-2xl font-bold text-white">Resonance Settings</h3>
+              <p class="text-slate-400 text-sm">Update your key statement and author details.</p>
+            </div>
+
+            <div class="space-y-6">
+              <div class="group">
+                <label class="block text-slate-400 text-xs font-bold mb-2 uppercase">Heading</label>
+                <input type="text" name="heading" data-preview="preview-heading" class="w-full bg-slate-800 text-white p-4 border border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all">
+              </div>
+
+              <div class="group">
+                <label class="block text-slate-400 text-xs font-bold mb-2 uppercase">Description</label>
+                <textarea name="description" data-preview="preview-desc" rows="5" class="w-full bg-slate-800 text-white p-4 border border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all resize-none"></textarea>
+              </div>
+
+              <div class="grid grid-cols-2 gap-6">
+                <div class="group">
+                  <label class="block text-slate-400 text-xs font-bold mb-2 uppercase">Author Name</label>
+                  <input type="text" name="authorName" data-preview="preview-author" class="w-full bg-slate-800 text-white p-4 border border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none">
+                </div>
+                <div class="group">
+                  <label class="block text-slate-400 text-xs font-bold mb-2 uppercase">Designation</label>
+                  <input type="text" name="degination" data-preview="preview-degination" class="w-full bg-slate-800 text-white p-4 border border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none">
+                </div>
+              </div>
+            </div>
+
+            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-4 rounded-xl transition-all shadow-lg flex items-center justify-center gap-2">
+              Save & Publish Resonance
+            </button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const form = document.getElementById('resonance-form');
+  const inputs = form.querySelectorAll('input, textarea');
+  inputs.forEach(input => {
+    input.addEventListener('input', (e) => {
+      const targetId = e.target.getAttribute('data-preview');
+      if (targetId) {
+        document.getElementById(targetId).innerText = e.target.value;
+      }
+    });
+  });
+</script>

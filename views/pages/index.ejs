@@ -1,59 +1,59 @@
-<%- layout("layout/boilerplate.ejs") %> 
-<style>
-  body {
-    background-color: #f5f5f5;
-  }
-</style>
+  <%- layout("layout/boilerplate.ejs") %> 
+  <style>
+    body {
+      background-color: #f5f5f5;
+    }
+  </style>
 
 
-<%if(isAdminLoggedIn){%>
-  <%- include("../includes/navbar.ejs") %>
-<%}%>
-  
-
-<div class="flex justify-start items-center">
-  <%- include("../particals/sidebar.ejs") %>
-  <div>
-    <h1 class=" ml-10 text-black text-lg font-semibold">ECOMMERCE</h1>
-    <div
-      class="ml-10 w-[380px] bg-white rounded-md shadow-sm border border-gray-200 overflow-hidden"
-    >
-      <div class="flex items-center justify-between p-6">
-        <div>
-          <p class="text-gray-400 text-sm uppercase tracking-wide">Good Day,</p>
-          <h2 class="text-2xl font-semibold text-gray-800">David Dev!</h2>
-        </div>
-
-        <div class="w-24 h-24">
-          <img
-            src="/dashboard/1.svg"
-            alt="Illustration"
-            class="w-full h-full object-contain"
-          />
-        </div>
-      </div>
-
-      <div class="border-t border-gray-200"></div>
-
-      <div
-        class="flex items-center justify-between px-6 py-4 text-sm text-gray-600 bg-gray-50"
-      >
-        <div class="flex items-center gap-2">
-          <i class="ri-calendar-line"></i>
-          <span><%= date %></span>
-        </div>
-
-        <div class="flex items-center gap-2">
-          <i class="ri-time-line"></i>
-          <span><%= time %></span>
-        </div>
-      </div>
-    </div>
-
+  <%if(isAdminLoggedIn){%>
+    <%- include("../includes/navbar.ejs") %>
+  <%}%>
     
 
+  <div class="flex justify-start items-center">
+    <%- include("../particals/sidebar.ejs") %>
+    <div>
+      <h1 class=" ml-10 text-black text-lg font-semibold">ECOMMERCE</h1>
+      <div
+        class="ml-10 w-[380px] bg-white rounded-md shadow-sm border border-gray-200 overflow-hidden"
+      >
+        <div class="flex items-center justify-between p-6">
+          <div>
+            <p class="text-gray-400 text-sm uppercase tracking-wide">Good Day,</p>
+            <h2 class="text-2xl font-semibold text-gray-800">David Dev!</h2>
+          </div>
 
+          <div class="w-24 h-24">
+            <img
+              src="/dashboard/1.svg"
+              alt="Illustration"
+              class="w-full h-full object-contain"
+            />
+          </div>
+        </div>
+
+        <div class="border-t border-gray-200"></div>
+
+        <div
+          class="flex items-center justify-between px-6 py-4 text-sm text-gray-600 bg-gray-50"
+        >
+          <div class="flex items-center gap-2">
+            <i class="ri-calendar-line"></i>
+            <span><%= date %></span>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <i class="ri-time-line"></i>
+            <span><%= time %></span>
+          </div>
+        </div>
+      </div>
+
+      
+
+
+    </div>
   </div>
-</div>
 
-<!-- <%- include("../includes/footer.ejs") %> -->
+  <!-- <%- include("../includes/footer.ejs") %> -->
