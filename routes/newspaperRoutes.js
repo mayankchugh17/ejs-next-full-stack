@@ -1,14 +1,15 @@
 const express = require("express");
 const Newspaper = require("../models/newsletter");
 const newspaperRouter = express.Router();
+const isAuth = require("../middlewares/isAuth.js");
 
 // GET route
-newspaperRouter.get("/", (req, res) => {
+newspaperRouter.get("/", isAuth, (req, res) => {
   res.render("pages/newspaper.ejs");
 });
 
 // POST route
-newspaperRouter.post("/", async (req, res) => {
+newspaperRouter.post("/", isAuth, async (req, res) => {
   try {
     let { heading, buttonText, description } = req.body;
     const payload = { heading, buttonText, description };

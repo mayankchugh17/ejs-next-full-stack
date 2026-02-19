@@ -1,0 +1,135 @@
+<%- layout("layout/boilerplate.ejs") %>
+
+<% 
+  // Safety check to prevent ReferenceError
+  if (typeof data === 'undefined' || !data) { 
+    var data = { cards: [], heading: '', description: '', buttonText: '' }; 
+  } 
+%>
+
+<style>
+  @keyframes slideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+  }
+  .animate-slide-in {
+    animation: slideIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  }
+</style>
+
+<section class="min-h-screen bg-slate-900">
+  <%- include("../includes/navbar.ejs") %>
+  
+  <div class="flex">
+    <%- include("../particals/sidebar.ejs") %>
+
+    <div class="flex-1 p-6 lg:p-12 relative">
+      
+      <div class="fixed top-6 right-6 z-50 space-y-4 min-w-[320px] pointer-events-none">
+        <% if (success && success.length > 0) { %>
+          <div class="pointer-events-auto flex items-center p-4 text-emerald-100 bg-emerald-500/20 border border-emerald-500/30 backdrop-blur-md rounded-2xl shadow-2xl animate-slide-in">
+            <div class="flex-shrink-0 bg-emerald-500 text-white p-2 rounded-xl">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+            </div>
+            <div class="ml-3 font-medium"><%= success[0] %></div>
+          </div>
+        <% } %>
+      </div>
+
+      <div class="max-w-6xl mx-auto space-y-12">
+        
+        <div class="space-y-6">
+          <div class="text-center space-y-2">
+            <h2 class="text-3xl font-extrabold text-white tracking-tight" id="prev-heading"><%= data.heading || 'Contact Us' %></h2>
+            <p class="text-slate-400 max-w-2xl mx-auto" id="prev-desc"><%= data.description || 'Have questions? We are here to help.' %></p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="preview-card-container">
+            <% if(data.cards && data.cards.length > 0) { %>
+              <% data.cards.forEach((card, i) => { %>
+                <div class="bg-slate-800 border border-slate-700 p-6 rounded-2xl shadow-xl">
+                  <h4 class="text-blue-400 font-bold mb-3"><%= card.title %></h4>
+                  <p class="text-slate-300 text-sm mb-1">📧 <%= card.email %></p>
+                  <p class="text-slate-300 text-sm mb-1">📞 <%= card.phone %></p>
+                  <p class="text-slate-500 text-xs italic"><%= card.address %></p>
+                </div>
+              <% }) %>
+            <% } else { %>
+               <div class="col-span-3 text-center py-10 border-2 border-dashed border-slate-700 rounded-2xl text-slate-500">
+                 Card previews will appear here...
+               </div>
+            <% } %>
+          </div>
+        </div>
+
+        <div class="bg-slate-800 rounded-3xl p-1 border border-slate-700 shadow-2xl">
+          <form method="post" action="/contactUs" class="bg-slate-900 rounded-[calc(1.5rem-1px)] p-8 lg:p-10 space-y-10">
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div class="col-span-2 border-b border-slate-800 pb-4">
+                <h3 class="text-xl font-bold text-white">General Content</h3>
+              </div>
+              <div class="group">
+                <label class="block text-slate-400 text-sm mb-2">Main Heading</label>
+                <input type="text" name="heading" oninput="document.getElementById('prev-heading').innerText = this.value" value="<%= data.heading %>" class="w-full bg-slate-800 text-white p-3 border border-slate-700 rounded-xl outline-none focus:ring-2 focus:ring-blue-500" required>
+              </div>
+              <div class="group">
+                <label class="block text-slate-400 text-sm mb-2">Button Text</label>
+                <input type="text" name="buttonText" value="<%= data.buttonText %>" class="w-full bg-slate-800 text-white p-3 border border-slate-700 rounded-xl outline-none focus:ring-2 focus:ring-blue-500">
+              </div>
+              <div class="col-span-2">
+                <label class="block text-slate-400 text-sm mb-2">Description</label>
+                <textarea name="description" oninput="document.getElementById('prev-desc').innerText = this.value" rows="3" class="w-full bg-slate-800 text-white p-3 border border-slate-700 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 resize-none"><%= data.description %></textarea>
+              </div>
+            </div>
+
+            <div class="space-y-6">
+              <div class="flex justify-between items-center border-b border-slate-800 pb-4">
+                <h3 class="text-xl font-bold text-white">Contact Cards</h3>
+                <button type="button" onclick="addContactCard()" class="text-xs bg-blue-600/20 text-blue-400 px-3 py-1 rounded-lg border border-blue-500/30 hover:bg-blue-600 hover:text-white transition-all">+ Add Card</button>
+              </div>
+
+              <div id="cards-input-container" class="space-y-4">
+                <% data.cards.forEach((card, index) => { %>
+                  <div class="grid grid-cols-1 md:grid-cols-4 gap-4 p-4 bg-slate-800/50 rounded-2xl border border-slate-700 relative group">
+                    <input type="text" name="cards[<%=index%>][title]" placeholder="Title (e.g. Sales)" value="<%=card.title%>" class="bg-slate-900 text-white p-2 text-sm border border-slate-700 rounded-lg">
+                    <input type="email" name="cards[<%=index%>][email]" placeholder="Email" value="<%=card.email%>" class="bg-slate-900 text-white p-2 text-sm border border-slate-700 rounded-lg">
+                    <input type="text" name="cards[<%=index%>][phone]" placeholder="Phone" value="<%=card.phone%>" class="bg-slate-900 text-white p-2 text-sm border border-slate-700 rounded-lg">
+                    <input type="text" name="cards[<%=index%>][address]" placeholder="Address" value="<%=card.address%>" class="bg-slate-900 text-white p-2 text-sm border border-slate-700 rounded-lg">
+                    <button type="button" onclick="this.parentElement.remove()" class="absolute -right-2 -top-2 bg-rose-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"></path></svg>
+                    </button>
+                  </div>
+                <% }) %>
+              </div>
+            </div>
+
+            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-4 rounded-xl transition-all shadow-lg shadow-blue-500/25 flex items-center justify-center gap-2">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+              Save Contact Page Details
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  function addContactCard() {
+    const container = document.getElementById('cards-input-container');
+    const index = container.children.length;
+    const cardHtml = `
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4 p-4 bg-slate-800/50 rounded-2xl border border-slate-700 relative group animate-slide-in">
+        <input type="text" name="cards[\${index}][title]" placeholder="Title" class="bg-slate-900 text-white p-2 text-sm border border-slate-700 rounded-lg" required>
+        <input type="email" name="cards[\${index}][email]" placeholder="Email" class="bg-slate-900 text-white p-2 text-sm border border-slate-700 rounded-lg">
+        <input type="text" name="cards[\${index}][phone]" placeholder="Phone" class="bg-slate-900 text-white p-2 text-sm border border-slate-700 rounded-lg">
+        <input type="text" name="cards[\${index}][address]" placeholder="Address" class="bg-slate-900 text-white p-2 text-sm border border-slate-700 rounded-lg">
+        <button type="button" onclick="this.parentElement.remove()" class="absolute -right-2 -top-2 bg-rose-500 text-white rounded-full p-1 opacity-100 transition-opacity">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"></path></svg>
+        </button>
+      </div>
+    `;
+    container.insertAdjacentHTML('beforeend', cardHtml);
+  }
+</script>

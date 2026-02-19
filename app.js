@@ -26,7 +26,7 @@ const resonanceRouter = require("./routes/resonanceRoute");
 const featureSliderRouter = require("./routes/featureSliderRoute");
 const templateDesignRouter = require("./routes/templateDesignRoute");
 const newspaperRouter = require("./routes/newspaperRoutes");
-
+const contactUsRouter = require("./routes/contactUs");
 
 
 // port
@@ -86,6 +86,9 @@ app.use("/resonance", resonanceRouter)
 app.use("/featureSlider", featureSliderRouter);
 app.use("/templateDesign", templateDesignRouter);
 app.use("/newspaper", newspaperRouter);
+app.use("/contactus", contactUsRouter);
+
+
 
 
 
