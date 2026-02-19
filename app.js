@@ -25,6 +25,7 @@ const primaryBenefitsRouter = require("./routes/primaryBenefits");
 const resonanceRouter = require("./routes/resonanceRoute");
 const featureSliderRouter = require("./routes/featureSliderRoute");
 const templateDesignRouter = require("./routes/templateDesignRoute");
+const newspaperRouter = require("./routes/newspaperRoutes");
 
 
 
@@ -84,6 +85,8 @@ app.use("/primaryBenefits", primaryBenefitsRouter);
 app.use("/resonance", resonanceRouter)
 app.use("/featureSlider", featureSliderRouter);
 app.use("/templateDesign", templateDesignRouter);
+app.use("/newspaper", newspaperRouter);
+
 
 
 // DB connection
