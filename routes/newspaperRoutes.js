@@ -29,5 +29,10 @@ newspaperRouter.post("/", async (req, res) => {
   }
 });
 
+// Api for frontend
+newspaperRouter.get("/data", async(req, res)=>{
+    const data = await Newspaper.findOne({});
+    return res.status(200).json(data);
+})
 
 module.exports = newspaperRouter;
