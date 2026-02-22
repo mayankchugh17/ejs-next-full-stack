@@ -1,197 +1,106 @@
-<%- layout("layout/boilerplate.ejs") %>
-<style>
-body {
-  margin: 0;
-  background: #111827;
-  color: white;
-  font-family: Arial;
-}
+<% layout("layout/boilerplate") %>
 
-/* Navbar fixed */
-.navbar {
-  height: 60px;
-  background: #1f2937;
-  display: flex;
-  align-items: center;
-  padding: 0 20px;
-  position: fixed;
-  width: 100%;
-  top: 0;
-  z-index: 1000;
-}
+<div class="min-h-screen bg-gray-900 text-gray-100">
+  <%- include("../includes/navbar.ejs") %>
 
-/* Layout wrapper */
-.layout {
-  display: flex;
-  margin-top: 60px; /* height of navbar */
-}
+  <div class="flex pt-16 gap-10">
+    <aside class="w-70 h-[calc(100vh-4rem)] fixed left-0 top-16 p-6 overflow-y-auto">
+      <%- include("../particals/sidebar.ejs") %>
+    </aside>
 
-/* Sidebar */
-.sidebar {
-  width: 240px;
-  height: calc(100vh - 60px);
-  background: #1f2937;
-  position: fixed;
-  left: 0;
-  top: 60px;
-  padding: 20px;
-}
+    <main class="ml-75 w-full p-8">
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-8">
+        <% const stats = [
+          { label: "Today Booking", value: todayBookings, prefix: "" },
+          { label: "Total Booking", value: totalBookings, prefix: "" },
+          { label: "Total Customer", value: totalCustomers, prefix: "" },
+          { label: "Total Revenue", value: totalRevenue, prefix: "$" }
+        ] %>
+        
+        <% stats.forEach(stat => { %>
+          <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700">
+            <p class="text-gray-400 font-medium"><%= stat.label %></p>
+            <h1 class="text-3xl font-bold mt-2"><%= stat.prefix %><%= stat.value %></h1>
+          </div>
+        <% }) %>
+      </div>
 
-/* Main content */
-.main-content {
-  margin-left: 240px;
-  width: calc(100% - 240px);
-  padding: 30px;
-}
-
-/* Cards */
-.cards {
-  display: flex;
-  gap: 20px;
-  margin-bottom: 30px;
-}
-
-.card {
-  background: #1f2937;
-  padding: 20px;
-  flex: 1;
-  border-radius: 10px;
-}
-
-/* Chart */
-.chart-box {
-  background: #1f2937;
-  padding: 20px;
-  border-radius: 10px;
-  margin-bottom: 30px;
-}
-
-/* Table */
-.table-box {
-  background: #1f2937;
-  padding: 20px;
-  border-radius: 10px;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-th, td {
-  padding: 12px;
-}
-
-th {
-  background: #374151;
-}
-
-.success {
-  background: green;
-  padding: 5px 10px;
-  border-radius: 5px;
-}
-
-.pending {
-  background: orange;
-  padding: 5px 10px;
-  border-radius: 5px;
-}
-
-/* Footer */
-.footer {
-  margin-top: 40px;
-  padding: 20px;
-  text-align: center;
-  background: #1f2937;
-}
-</style>
-<body>
-
-<%- include("../includes/navbar.ejs") %>
-
-<div class="layout">
-
-  <!-- Sidebar -->
-  <div class="sidebar">
-    <%- include("../particals/sidebar.ejs") %>
-  </div>
-
-  <!-- Main Content -->
-  <div class="main-content">
-
-    <div class="container">
-
-      <!-- TOP CARDS -->
-      <div class="cards">
-        <div class="card">
-          <h3>Today Booking</h3>
-          <h1><%= todayBookings %></h1>
-        </div>
-
-        <div class="card">
-          <h3>Total Booking</h3>
-          <h1><%= totalBookings %></h1>
-        </div>
-
-        <div class="card">
-          <h3>Total Customer</h3>
-          <h1><%= totalCustomers %></h1>
-        </div>
-
-        <div class="card">
-          <h3>Total Revenue</h3>
-          <h1>$<%= totalRevenue %></h1>
+      <div class="bg-gray-800 p-6 rounded-xl shadow-lg mb-8 border border-gray-700">
+        <h2 class="text-lg font-semibold mb-4 text-blue-400">Reservations Overview</h2>
+        <div class="h-64">
+           <canvas id="reservationChart"></canvas>
         </div>
       </div>
 
-      <!-- CHART -->
-      <div class="chart-box">
-        <canvas id="reservationChart"></canvas>
-      </div>
-
-      <!-- TABLE -->
-      <div class="table-box">
-        <h2>Today Booking List</h2>
-
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Room Type</th>
-              <th>Check In</th>
-              <th>Check Out</th>
-              <th>Paid</th>
-              <th>Due</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% bookingsList.forEach(b => { %>
+      <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700">
+        <h2 class="text-lg font-semibold mb-6">Today's Bookings</h2>
+        <div class="overflow-x-auto">
+          <table class="min-w-full text-left text-sm">
+            <thead class="bg-gray-700 text-gray-300 uppercase text-xs">
               <tr>
-                <td><%= b.name %></td>
-                <td><%= b.roomType %></td>
-                <td><%= b.checkIn.toDateString() %></td>
-                <td><%= b.checkOut.toDateString() %></td>
-                <td>$<%= b.paidAmount %></td>
-                <td>$<%= b.dueAmount %></td>
-                <td>
-                  <span class="<%= b.status === 'Success' ? 'success' : 'pending' %>">
-                    <%= b.status %>
-                  </span>
-                </td>
+                <th class="px-4 py-3">Name</th>
+                <th class="px-4 py-3">Room Type</th>
+                <th class="px-4 py-3">Dates</th>
+                <th class="px-4 py-3">Financials (Paid/Due)</th>
+                <th class="px-4 py-3 text-center">Status</th>
               </tr>
-            <% }) %>
-          </tbody>
-        </table>
-
+            </thead>
+            <tbody class="divide-y divide-gray-700">
+              <% bookingsList.forEach(b => { %>
+                <tr class="hover:bg-gray-700/50 transition">
+                  <td class="px-4 py-4 font-medium"><%= b.name %></td>
+                  <td class="px-4 py-4"><%= b.roomType %></td>
+                  <td class="px-4 py-4 text-xs text-gray-400">
+                    <%= b.checkIn.toDateString() %> - <%= b.checkOut.toDateString() %>
+                  </td>
+                  <td class="px-4 py-4">
+                    <span class="text-green-400">$<%= b.paidAmount %></span> / 
+                    <span class="text-red-400">$<%= b.dueAmount %></span>
+                  </td>
+                  <td class="px-4 py-4 text-center">
+                    <span class="px-3 py-1 rounded-full text-xs <%= b.status === 'Success' ? 'bg-green-900 text-green-200' : 'bg-yellow-900 text-yellow-200' %>">
+                      <%= b.status %>
+                    </span>
+                  </td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
       </div>
 
-    </div>
-
-    <!-- Footer -->
-    <%- include("../includes/footer.ejs") %>
-
+      <footer class="mt-10 pb-6 text-center text-gray-500 text-xs">
+        <%- include("../includes/footer.ejs") %>
+      </footer>
+    </main>
   </div>
-
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const data = <%- JSON.stringify(reservations) %>;
+  const labels = data.map(item => "Day " + item._id);
+  const values = data.map(item => item.total);
+
+  new Chart(document.getElementById("reservationChart"), {
+    type: "bar",
+    data: {
+      labels: labels,
+      datasets: [{
+        label: "Reservations",
+        data: values,
+        backgroundColor: "#3b82f6",
+        borderRadius: 4
+      }]
+    },
+    options: {
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { ticks: { color: "#9ca3af" }, grid: { display: false } },
+        y: { ticks: { color: "#9ca3af" }, grid: { color: "#374151" } }
+      }
+    }
+  });
+</script>
