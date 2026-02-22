@@ -68,7 +68,7 @@ app.use((req, res, next) => {
 });
 
 app.use((req, res, next) => {
-  res.locals.isAdminLoggedIn = req.cookies.token ? true : false; // check if token exists
+  res.locals.isAdminLoggedIn = req.cookies.token ? true : false; 
   next();
 });
 

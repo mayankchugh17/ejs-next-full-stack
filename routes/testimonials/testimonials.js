@@ -40,9 +40,10 @@ testimonialsRoute.post("/", async (req, res) => {
 
 // Frontend API to get testimonials data
 
-testimonialsRoute.get("/data", isAuth, async (req, res) => {
+testimonialsRoute.get("/data", async (req, res) => {
     try {
-        const testimonialsData = await Testimonials.findOne({});
+      const testimonialsData = await Testimonials.findOne({});
+      console.log("Testemonials data is :", testimonialsData);
         return res.json(testimonialsData);
     } catch (error) {
         console.error("Error fetching testimonials data:", error);

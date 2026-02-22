@@ -12,11 +12,12 @@ contactUsRouter.post("/", async (req, res)=>{
     try {
         const {heading, cards, buttonText, description} = req.body;
         const payload = {heading, cards, buttonText, description};
+        // console.log("Data is card: ",payload);
         const data = await ContactUs.findOne({});
         if(!data)
         {
             const newData = new ContactUs(payload);
-            await newData.save()
+            await newData.save();
             req.flash("Success","Contact Us details inserted Successfully!");
             return res.redirect("/contactus");
         }else{
@@ -28,5 +29,12 @@ contactUsRouter.post("/", async (req, res)=>{
         console.log("Error is ", error)
     }
 });
+
+// Api to get frontend DATA
+contactUsRouter.get("/data", async (req, res)=>{
+    const data = await ContactUs.findOne({});
+    console.log(`fetched data is `, data);
+    return res.status(200).json(data);
+})
 
 module.exports = contactUsRouter;
