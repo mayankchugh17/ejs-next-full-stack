@@ -2,23 +2,12 @@ const express = require("express");
 const Hero = require("../models/hero.js");
 const Story = require("../models/story.js");
 const isAuth = require("../middlewares/isAuth.js");
+const adminController = require("../controllers/adminController");
 
 const dashboardRouter = express.Router();
 
 // Dashboard route
-dashboardRouter.get("/", (req, res) => {
-  const now = new Date();
-  // console.log(now);
-
-  res.render("pages/index.ejs", {
-    date: now.toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    }),
-    time: now.toLocaleTimeString("en-US"),
-  });
-});
+dashboardRouter.get("/", adminController.getDashboard);
 
 // Hero route
 dashboardRouter.get("/hero", isAuth, async (req, res) => {

@@ -1,9 +1,10 @@
 const express = require("express");
 const ContactUs = require("../models/contactUs");
+const isAuth = require("../middlewares/isAuth");
 const contactUsRouter = express.Router();
 
 // GET Request 
-contactUsRouter.get("/", async (req, res)=>{
+contactUsRouter.get("/", isAuth,async (req, res)=>{
     await res.render("pages/contactus.ejs")
 });
 
