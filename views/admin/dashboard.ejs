@@ -11,7 +11,7 @@
     <main class="ml-75 w-full p-8">
       
       <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-8">
-        <% const stats = [
+        <% const stats = [x
           { label: "Today Booking", value: todayBookings, prefix: "" },
           { label: "Total Booking", value: totalBookings, prefix: "" },
           { label: "Total Customer", value: totalCustomers, prefix: "" },
@@ -70,11 +70,11 @@
         </div>
       </div>
 
-      <footer class="mt-10 pb-6 text-center text-gray-500 text-xs">
-        <%- include("../includes/footer.ejs") %>
-      </footer>
     </main>
   </div>
+  <footer class="mt-10 pb-6 text-center text-gray-500 text-xs">
+    <%- include("../includes/footer.ejs") %>
+  </footer>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
