@@ -3,11 +3,10 @@ const Service = require('../models/services.js');
 const isAuth = require('../middlewares/isAuth.js');
 
 // GET route 
-
 const serviceRouter = express.Router();
 serviceRouter.get('/', isAuth, async (req, res) => {
   try {
-    const serviceData = await Service.findOne({});
+    const serviceData = await Service.findById("69a7e660a808f64d75be7368");
     res.render('pages/services.ejs', { serviceData });
   } catch (err) {
     console.error(err);
@@ -66,8 +65,8 @@ serviceRouter.post('/', async (req, res) => {
 // API to get service data (public)
 serviceRouter.get('/data', async (req, res) => {
   try {
-    const serviceData = await Service.findOne({});
-    // console.log('Service data:', serviceData); 
+    const serviceData = await Service.findById("69a7e660a808f64d75be7368");
+    console.log('Service data:', serviceData); 
     return res.status(200).json(serviceData);
   } catch (err) {
     console.error('Error fetching service data:', err);
